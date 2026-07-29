@@ -30,16 +30,16 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "IMME Project — Uganda Expressways",
-    template: "%s — IMME Project",
+    default: "Proxy Consultants Ltd — Engineering & Digital Consultancy",
+    template: "%s — Proxy Consultants Ltd",
   },
   description:
-    "KOICA-funded Korea–Uganda cooperation delivering integrated lifecycle manuals and a bridge management system pilot for Uganda's expressways.",
+    "Proxy Consultants Ltd is a Ugandan engineering consultancy providing innovative, sustainable and high-quality solutions in transport infrastructure and digital technologies.",
   manifest: "/mainfest.json",
-  applicationName: "IMME Project",
+  applicationName: "Proxy Consultants Ltd",
   appleWebApp: {
     capable: true,
-    title: "IMME Project",
+    title: "Proxy Consultants Ltd",
     statusBarStyle: "black-translucent",
   },
   icons: {

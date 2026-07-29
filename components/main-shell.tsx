@@ -4,24 +4,27 @@ import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { ImmePublicShell } from "@/components/imme/imme-public-shell";
+import { ProxyPublicShell } from "@/components/proxy/proxy-public-shell";
 
 /**
  * Top-level routing dispatch:
  *
- *   - Public IMME routes (Home, About, Manuals, BMS, Progress, Capacity Building, News,
- *     Contact) render under `ImmePublicShell` (project header + footer).
+ *   - Corporate Proxy Consultants Ltd routes (Home, About Us, Our Services, Our Experience,
+ *     Selected Projects, International Technical Partnerships, Our Team, Clients & Partners,
+ *     News & Insights, Contact Us) render under `ProxyPublicShell` (company header + footer).
+ *   - The IMME Project delivery tool (Manuals, BMS, Progress, Capacity Building — one of Proxy
+ *     Consultants' selected projects, linked from `/projects`) keeps its own `ImmePublicShell`
+ *     header + footer, unchanged.
  *   - Auth pages (`/login`, `/signup`) keep their custom branded full-bleed layout.
  *   - Authenticated staff workspace (admin, users, dashboard, folders, files) keeps the
  *     legacy `Navbar` + the existing `.ui-shell` content container.
- *
- * Adding a new public page: drop it under one of the prefixes in `PUBLIC_PREFIXES` (or extend
- * the list) and you'll automatically inherit the IMME header/footer, no per-page wiring needed.
  */
 const STAFF_PREFIXES = ["/admin", "/users", "/dashboard", "/folders", "/files", "/search"];
+const IMME_PROJECT_PREFIXES = ["/manuals", "/bms", "/progress", "/capacity-building"];
 const AUTH_ROUTES = new Set(["/login", "/signup"]);
 
-function isStaffRoute(pathname: string): boolean {
-  return STAFF_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+function matchesPrefix(pathname: string, prefixes: string[]): boolean {
+  return prefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 }
 
 export function MainShell({ children }: { children: ReactNode }) {
@@ -32,7 +35,7 @@ export function MainShell({ children }: { children: ReactNode }) {
     return <main className="min-h-screen w-full">{children}</main>;
   }
 
-  if (isStaffRoute(pathname)) {
+  if (matchesPrefix(pathname, STAFF_PREFIXES)) {
     return (
       <>
         <Navbar />
@@ -41,5 +44,9 @@ export function MainShell({ children }: { children: ReactNode }) {
     );
   }
 
-  return <ImmePublicShell>{children}</ImmePublicShell>;
+  if (matchesPrefix(pathname, IMME_PROJECT_PREFIXES)) {
+    return <ImmePublicShell>{children}</ImmePublicShell>;
+  }
+
+  return <ProxyPublicShell>{children}</ProxyPublicShell>;
 }

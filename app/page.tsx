@@ -1,21 +1,20 @@
 import Link from "next/link";
 import {
-  IMME_CURRENT_STEP,
-  IMME_KEY_FACTS,
-  IMME_NEWS,
-  IMME_PROJECT,
-  IMME_ROADMAP,
-  IMME_STRATEGY_PILLARS,
-  IMME_TOTAL_STEPS,
-} from "@/lib/imme/project";
+  CLIENTS,
+  COMPANY,
+  CORE_SERVICES,
+  EXPERTISE_AREAS,
+  SELECTED_PROJECTS,
+} from "@/lib/proxy/company";
 import {
   ArrowRightIcon,
   BookStackIcon,
   BridgeIcon,
   CheckCircleIcon,
-  CircleIcon,
-  ClockIcon,
-  PeopleIcon,
+  CompassIcon,
+  GearIcon,
+  GridIcon,
+  ToolboxIcon,
 } from "@/components/imme/imme-icons";
 
 export default function HomePage() {
@@ -23,69 +22,54 @@ export default function HomePage() {
     <>
       <Hero />
       <SectionRibbon />
-      <KeyFactsBar />
+      <ValuesBar />
       <SectionRibbon variant="light" />
-      <WhatWeBuild />
+      <ServicesPreview />
       <SectionRibbon />
-      <StrategyStrip />
+      <AboutStrip />
       <SectionRibbon variant="light" />
-      <TimelineSnapshot />
+      <ProjectsPreview />
       <SectionRibbon />
-      <LatestNews />
+      <PartnershipStrip />
       <ClosingCta />
     </>
   );
 }
 
 /* ----------------------------------------------------------------- */
-/* Hero (Brief §5.1)                                                 */
+/* Hero                                                               */
 /* ----------------------------------------------------------------- */
 
 function Hero() {
   return (
-    <section
-      aria-labelledby="imme-hero-title"
-      className="relative overflow-hidden bg-imme-navy text-white"
-    >
+    <section aria-labelledby="proxy-hero-title" className="relative overflow-hidden bg-imme-navy text-white">
       <HeroBackdrop />
       <div className="imme-container relative grid gap-12 py-16 sm:gap-14 sm:py-20 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:py-[5.25rem]">
         <div className="max-w-2xl">
-          <p className="imme-eyebrow text-imme-amber-300">{IMME_PROJECT.shortName}</p>
+          <p className="imme-eyebrow text-imme-amber-300">{COMPANY.name}</p>
           <h1
-            id="imme-hero-title"
+            id="proxy-hero-title"
             className="mt-4 font-display text-[clamp(1.85rem,4.6vw,3.15rem)] font-bold leading-[1.06] tracking-tight"
           >
-            Building Uganda&apos;s Expressway Knowledge Infrastructure
+            {COMPANY.tagline}
           </h1>
           <p className="mt-6 max-w-xl text-base leading-8 text-white/82 sm:text-[17px] sm:leading-8">
-            Integrated lifecycle manuals and a bridge management system pilot — KOICA-funded Korea–Uganda
-            cooperation, owned by Uganda&apos;s Ministry of Works and Transport after handover in April 2026.
+            {COMPANY.summary}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link href="/manuals" className="imme-btn-amber shadow-lg shadow-black/20">
-              Explore the Manuals
+            <Link href="/services" className="imme-btn-amber shadow-lg shadow-black/20">
+              Explore Our Services
               <ArrowRightIcon className="h-4 w-4" />
             </Link>
             <Link
-              href="/progress"
+              href="/projects"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/[0.07] px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/55 hover:bg-white/12"
             >
-              View Project Progress
+              View Selected Projects
               <ArrowRightIcon className="h-4 w-4" />
             </Link>
           </div>
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/12 pt-8">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-imme-amber shadow-[0_0_12px_rgba(200,129,58,0.65)]" />
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/68">
-                Live roadmap
-              </p>
-            </div>
-            <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-white/88">
-              Step {IMME_CURRENT_STEP.step} / {IMME_TOTAL_STEPS} — {IMME_CURRENT_STEP.title}
-            </p>
-          </div>
-          <TrustRibbon className="mt-8" />
+          <TrustRibbon className="mt-10" />
         </div>
 
         <PartnerStrip />
@@ -95,7 +79,7 @@ function Hero() {
 }
 
 function TrustRibbon({ className = "" }: { className?: string }) {
-  const labels = ["KOICA", "MoWT Uganda", "KEC", "DOHWA", "CHEIL"];
+  const labels = ["Transport Planning", "Bridge Engineering", "PPP Advisory", "GIS", "Software & Web"];
   return (
     <div
       className={[
@@ -103,7 +87,7 @@ function TrustRibbon({ className = "" }: { className?: string }) {
         className,
       ].join(" ")}
     >
-      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/50">Consortium</span>
+      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/50">Core practice</span>
       <span aria-hidden className="hidden h-4 w-px bg-white/15 sm:block" />
       <ul className="flex flex-wrap items-center gap-x-3 gap-y-1">
         {labels.map((label, i) => (
@@ -117,7 +101,6 @@ function TrustRibbon({ className = "" }: { className?: string }) {
   );
 }
 
-/** Fine horizontal rule between major home bands — keeps rhythm legible on long scroll (Brief §7). */
 function SectionRibbon({ variant = "default" }: { variant?: "default" | "light" }) {
   const bg = variant === "light" ? "bg-imme-concrete" : "bg-white";
   return (
@@ -127,11 +110,6 @@ function SectionRibbon({ variant = "default" }: { variant?: "default" | "light" 
   );
 }
 
-/**
- * Hero background — layered SVG depicting an aerial expressway cutting through Uganda's
- * landscape. Built from CSS gradients + an inline SVG so we don't rely on an asset that may
- * not exist in `/public/`.
- */
 function HeroBackdrop() {
   return (
     <div aria-hidden className="absolute inset-0">
@@ -142,27 +120,11 @@ function HeroBackdrop() {
             "radial-gradient(circle at 18% 20%, rgba(200, 129, 58, 0.32), transparent 35%), radial-gradient(circle at 82% 30%, rgba(46, 125, 82, 0.28), transparent 40%), linear-gradient(135deg, #14213a 0%, #1a2d4f 55%, #22406e 100%)",
         }}
       />
-      <svg
-        className="absolute inset-x-0 bottom-0 w-full"
-        viewBox="0 0 1200 240"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
+      <svg className="absolute inset-x-0 bottom-0 w-full" viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden>
         <path d="M0 200 L1200 90 L1200 240 L0 240 Z" fill="rgba(255,255,255,0.04)" />
         <path d="M0 220 L1200 130 L1200 240 L0 240 Z" fill="rgba(0,0,0,0.18)" />
-        <path
-          d="M-20 215 L380 165 L600 130 L1220 95"
-          stroke="rgba(255,255,255,0.42)"
-          strokeWidth="3"
-          fill="none"
-          strokeDasharray="14 14"
-        />
-        <path
-          d="M-20 215 L380 165 L600 130 L1220 95"
-          stroke="#C8813A"
-          strokeWidth="1.4"
-          fill="none"
-        />
+        <path d="M-20 215 L380 165 L600 130 L1220 95" stroke="rgba(255,255,255,0.42)" strokeWidth="3" fill="none" strokeDasharray="14 14" />
+        <path d="M-20 215 L380 165 L600 130 L1220 95" stroke="#C8813A" strokeWidth="1.4" fill="none" />
       </svg>
       <div className="absolute inset-0 bg-gradient-to-r from-imme-navy via-transparent to-imme-navy/50" />
     </div>
@@ -170,30 +132,21 @@ function HeroBackdrop() {
 }
 
 function PartnerStrip() {
-  const partners: Array<{ label: string; sub?: string }> = [
-    { label: "KOICA", sub: "Funder" },
-    { label: "MoWT", sub: "Uganda" },
-    { label: "KEC", sub: "Lead consultant" },
-    { label: "DOHWA", sub: "Engineering" },
-    { label: "CHEIL", sub: "Engineering" },
-  ];
   return (
     <aside
-      aria-label="Project partners"
+      aria-label="International technical partnership"
       className="grid gap-4 self-start rounded-imme border border-white/18 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-6 text-white shadow-imme-soft backdrop-blur-md sm:p-7"
     >
-      <p className="imme-eyebrow text-imme-amber-300">Partner cluster</p>
+      <p className="imme-eyebrow text-imme-amber-300">International technical partnership</p>
       <p className="text-[15px] leading-7 text-white/76">
-        A consortium of Korea&apos;s expressway expertise and Uganda&apos;s ministry, coordinated through KOICA.
+        A network of highly experienced engineering specialists from the Republic of Korea provides on-call
+        technical support across expressway engineering, BMS, O&amp;M, and asset management.
       </p>
-      <ul className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {partners.map((partner) => (
-          <li
-            key={partner.label}
-            className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"
-          >
-            <p className="font-display text-sm font-semibold tracking-wide text-white">{partner.label}</p>
-            {partner.sub ? <p className="text-[11px] uppercase tracking-wider text-white/55">{partner.sub}</p> : null}
+      <ul className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-2">
+        {CLIENTS.map((client) => (
+          <li key={client.id} className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+            <p className="font-display text-sm font-semibold tracking-wide text-white">{client.name}</p>
+            <p className="text-[11px] uppercase tracking-wider text-white/55">{client.country}</p>
           </li>
         ))}
       </ul>
@@ -206,39 +159,27 @@ function PartnerStrip() {
 }
 
 /* ----------------------------------------------------------------- */
-/* Key Facts Bar (Brief §5.1)                                        */
+/* Values bar                                                         */
 /* ----------------------------------------------------------------- */
 
-function KeyFactsBar() {
+function ValuesBar() {
   return (
-    <section aria-label="Key project facts" className="relative bg-imme-ink text-white">
+    <section aria-label="What drives us" className="relative bg-imme-ink text-white">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: "linear-gradient(115deg, rgba(26,45,79,0.5) 0%, transparent 55%)",
-        }}
+        style={{ backgroundImage: "linear-gradient(115deg, rgba(26,45,79,0.5) 0%, transparent 55%)" }}
       />
       <div className="imme-container-wide relative grid gap-8 py-11 sm:grid-cols-2 sm:gap-y-10 sm:py-14 lg:grid-cols-4 lg:gap-6">
-        {IMME_KEY_FACTS.map((fact, idx) => (
+        {COMPANY.values.map((value, idx) => (
           <div
-            key={fact.id}
-            className={[
-              "relative flex flex-col gap-2 pl-4 sm:pl-5",
-              idx > 0 ? "lg:border-l lg:border-white/12 lg:pl-8" : "",
-            ].join(" ")}
+            key={value}
+            className={["relative flex flex-col gap-2 pl-4 sm:pl-5", idx > 0 ? "lg:border-l lg:border-white/12 lg:pl-8" : ""].join(" ")}
           >
             <span aria-hidden className="absolute left-0 top-2 hidden h-[calc(100%-0.5rem)] w-1 rounded-full bg-imme-amber/85 lg:block" />
-            <p className="font-display text-[clamp(2.25rem,5vw,3.35rem)] font-bold leading-none tracking-tight">
-              {fact.numeral}
-              {fact.unit ? (
-                <span className="ml-2 align-baseline font-mono text-[clamp(0.85rem,2vw,1.05rem)] font-semibold uppercase tracking-[0.12em] text-imme-amber-300">
-                  {fact.unit}
-                </span>
-              ) : null}
-            </p>
+            <p className="font-display text-[clamp(1.5rem,3vw,2rem)] font-bold leading-none tracking-tight">{value}</p>
             <p className="max-w-[14rem] text-[11px] font-medium uppercase leading-snug tracking-[0.14em] text-white/62">
-              {fact.caption}
+              Driving every engagement we deliver
             </p>
           </div>
         ))}
@@ -248,80 +189,75 @@ function KeyFactsBar() {
 }
 
 /* ----------------------------------------------------------------- */
-/* What We're Building (3-column cards, Brief §5.1)                  */
+/* Services preview                                                   */
 /* ----------------------------------------------------------------- */
 
-function WhatWeBuild() {
-  const cards: Array<{
-    icon: typeof BookStackIcon;
-    title: string;
-    body: string;
-    href: string;
-    tone: "navy" | "amber" | "green";
-  }> = [
+function ServicesPreview() {
+  const featured: Array<{ icon: typeof BookStackIcon; title: string; body: string; tone: "navy" | "amber" | "green" }> = [
     {
-      icon: BookStackIcon,
-      title: "Expressway Integrated Manuals",
-      body: "A single lifecycle-oriented manual system covering Planning, Design, Construction Management, Operation, and Maintenance — localized for Uganda's laws, institutions, and projects.",
-      href: "/manuals",
+      icon: BridgeIcon,
+      title: "Bridge Engineering & BMS",
+      body: "Bridge engineering consultancy paired with digital Bridge Management Systems for inspection and maintenance planning.",
       tone: "navy",
     },
     {
-      icon: BridgeIcon,
-      title: "Bridge Management System (BMS)",
-      body: "A digital BMS piloted on four bridges on the Kampala–Entebbe Expressway, linking inspection data to maintenance planning.",
-      href: "/bms",
+      icon: CompassIcon,
+      title: "Transport Planning & Design",
+      body: "Transport planning, highway and expressway engineering design calibrated to expressway-grade standards.",
       tone: "amber",
     },
     {
-      icon: PeopleIcon,
-      title: "Capacity Building",
-      body: "Two Korea Invitation Programs, three Technical Workshops in Uganda, and six months of On-the-Job Training to ensure MoWT can own and sustain the manuals.",
-      href: "/capacity-building",
+      icon: GearIcon,
+      title: "O&M & Asset Management",
+      body: "Operations & maintenance systems and infrastructure asset management frameworks across the asset lifecycle.",
       tone: "green",
+    },
+    {
+      icon: GridIcon,
+      title: "Digital & Software Solutions",
+      body: "Website design, GIS, custom software and digital platforms supporting infrastructure and institutions.",
+      tone: "navy",
     },
   ];
 
-  const toneStyles: Record<(typeof cards)[number]["tone"], { iconBg: string; iconColor: string }> = {
+  const toneStyles: Record<(typeof featured)[number]["tone"], { iconBg: string; iconColor: string }> = {
     navy: { iconBg: "bg-imme-navy", iconColor: "text-white" },
     amber: { iconBg: "bg-imme-amber", iconColor: "text-white" },
     green: { iconBg: "bg-imme-green", iconColor: "text-white" },
   };
 
   return (
-    <section aria-labelledby="what-we-build" className="bg-white">
+    <section aria-labelledby="services-preview" className="bg-white">
       <div className="imme-container py-14 sm:py-20">
-        <p className="imme-eyebrow">What we&apos;re building</p>
-        <h2 id="what-we-build" className="imme-h2 mt-2 max-w-2xl">
-          Three deliverables. One handover.
-        </h2>
-        <p className="mt-3 max-w-2xl text-imme-muted">
-          The IMME Project transfers Korean expressway practice into Ugandan ownership through three intertwined
-          outputs that arrive together at the April 2026 handover.
-        </p>
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="imme-eyebrow">Our core services</p>
+            <h2 id="services-preview" className="imme-h2 mt-2 max-w-2xl">
+              {CORE_SERVICES.length} consultancy disciplines, one delivery team.
+            </h2>
+            <p className="mt-3 max-w-2xl text-imme-muted">
+              From transport planning through to custom software, we cover the full lifecycle of infrastructure
+              and digital delivery.
+            </p>
+          </div>
+          <Link href="/services" className="imme-btn-secondary self-start lg:self-end">
+            All services
+            <ArrowRightIcon className="h-4 w-4" />
+          </Link>
+        </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {cards.map((card) => {
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((card) => {
             const Icon = card.icon;
             const tone = toneStyles[card.tone];
             return (
-              <Link
-                key={card.title}
-                href={card.href}
-                className="group flex h-full flex-col rounded-imme border border-imme-line bg-white p-6 shadow-imme-card transition hover:-translate-y-0.5 hover:border-imme-navy hover:shadow-imme-soft"
-              >
-                <span
-                  className={["inline-flex h-12 w-12 items-center justify-center rounded-xl", tone.iconBg, tone.iconColor].join(" ")}
-                >
+              <div key={card.title} className="group flex h-full flex-col rounded-imme border border-imme-line bg-white p-6 shadow-imme-card transition hover:-translate-y-0.5 hover:border-imme-navy hover:shadow-imme-soft">
+                <span className={["inline-flex h-12 w-12 items-center justify-center rounded-xl", tone.iconBg, tone.iconColor].join(" ")}>
                   <Icon className="h-6 w-6" strokeWidth={1.7} />
                 </span>
                 <h3 className="mt-5 font-display text-lg font-bold text-imme-navy">{card.title}</h3>
                 <p className="mt-2 text-[15px] leading-7 text-imme-muted">{card.body}</p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-imme-navy transition group-hover:text-imme-amber">
-                  Learn more
-                  <ArrowRightIcon className="h-4 w-4" />
-                </span>
-              </Link>
+              </div>
             );
           })}
         </div>
@@ -331,36 +267,29 @@ function WhatWeBuild() {
 }
 
 /* ----------------------------------------------------------------- */
-/* Strategy Strip (Brief §5.1 "4 pillars")                            */
+/* About strip                                                        */
 /* ----------------------------------------------------------------- */
 
-function StrategyStrip() {
+function AboutStrip() {
   return (
-    <section aria-labelledby="strategy" className="bg-imme-concrete">
-      <div className="imme-container py-14 sm:py-20">
-        <p className="imme-eyebrow">Our development strategy</p>
-        <h2 id="strategy" className="imme-h2 mt-2 max-w-2xl">
-          Four pillars that keep the manuals usable, not shelved.
-        </h2>
-
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {IMME_STRATEGY_PILLARS.map((pillar, idx) => (
-            <li
-              key={pillar.id}
-              className="flex flex-col gap-3 rounded-imme border border-imme-line bg-white p-5 shadow-imme-card"
-            >
-              <div className="flex items-center gap-3">
-                <span
-                  className={[
-                    "inline-flex h-10 w-10 items-center justify-center rounded-full font-display text-sm font-bold text-white",
-                    pillar.dotClass,
-                  ].join(" ")}
-                >
-                  {idx + 1}
-                </span>
-                <h3 className="font-display text-lg font-bold text-imme-navy">{pillar.label}</h3>
-              </div>
-              <p className="text-sm leading-6 text-imme-muted">{pillar.description}</p>
+    <section aria-labelledby="about-strip" className="bg-imme-concrete">
+      <div className="imme-container grid gap-10 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
+        <div>
+          <p className="imme-eyebrow">Who we are</p>
+          <h2 id="about-strip" className="imme-h2 mt-2 max-w-xl">
+            A Ugandan engineering consultancy with an international technical bench.
+          </h2>
+          <p className="mt-4 max-w-xl text-[15px] leading-7 text-imme-muted">{COMPANY.about[0]}</p>
+          <Link href="/about" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-imme-navy hover:text-imme-amber">
+            More about Proxy Consultants
+            <ArrowRightIcon className="h-4 w-4" />
+          </Link>
+        </div>
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {EXPERTISE_AREAS.slice(0, 6).map((area) => (
+            <li key={area} className="flex items-start gap-3 rounded-imme border border-imme-line bg-white p-4 shadow-imme-card">
+              <CheckCircleIcon className="mt-0.5 h-4 w-4 shrink-0 text-imme-green" />
+              <span className="text-sm leading-6 text-imme-ink">{area}</span>
             </li>
           ))}
         </ul>
@@ -370,145 +299,66 @@ function StrategyStrip() {
 }
 
 /* ----------------------------------------------------------------- */
-/* Timeline Snapshot (Brief §5.1)                                     */
+/* Projects preview                                                   */
 /* ----------------------------------------------------------------- */
 
-function TimelineSnapshot() {
-  /**
-   * "We are here" indicator: pick the current step and show 3 prior + 3 next + the current
-   * for a focused horizontal snapshot. Full 18-step roadmap lives at `/progress`.
-   */
-  const focus = IMME_ROADMAP.findIndex((m) => m.status === "current");
-  const start = Math.max(0, focus - 3);
-  const end = Math.min(IMME_ROADMAP.length, start + 7);
-  const window = IMME_ROADMAP.slice(start, end);
-
+function ProjectsPreview() {
   return (
-    <section aria-labelledby="timeline-snapshot" className="bg-white">
+    <section aria-labelledby="projects-preview" className="bg-white">
       <div className="imme-container py-14 sm:py-20">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="imme-eyebrow">Where we are</p>
-            <h2 id="timeline-snapshot" className="imme-h2 mt-2 max-w-2xl">
-              Project roadmap at a glance
+            <p className="imme-eyebrow">Selected projects</p>
+            <h2 id="projects-preview" className="imme-h2 mt-2 max-w-2xl">
+              Nationally significant expressway consultancy work
             </h2>
-            <p className="mt-3 max-w-2xl text-imme-muted">
-              Kickoff (Jan 2023) → Site Survey → Literature Review → 1st Workshop → 1st Invitation (Korea) → 2nd Workshop →
-              Draft Manuals (OJT) → 3rd Workshop <strong className="text-imme-amber">[NOW]</strong> → Final Manuals → Handover
-              (Apr 2026) → Final Reporting (Sep 2026).
-            </p>
           </div>
-          <Link href="/progress" className="imme-btn-secondary self-start lg:self-end">
-            View full roadmap
+          <Link href="/projects" className="imme-btn-secondary self-start lg:self-end">
+            All projects
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </div>
 
-        <ol className="mt-10 grid gap-3 lg:grid-cols-7">
-          {window.map((m) => {
-            const tone =
-              m.status === "completed"
-                ? "border-imme-green bg-imme-green/5 text-imme-green"
-                : m.status === "current"
-                  ? "border-imme-amber bg-imme-amber/10 text-imme-amber-300 ring-2 ring-imme-amber"
-                  : "border-imme-line bg-white text-imme-muted";
-
-            const Icon =
-              m.status === "completed" ? CheckCircleIcon : m.status === "current" ? ClockIcon : CircleIcon;
-
-            return (
-              <li
-                key={m.step}
-                className={["flex flex-col gap-2 rounded-imme border-2 p-4 transition", tone].join(" ")}
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-mono text-[11px] uppercase tracking-wider">Step {m.step}</p>
-                  <Icon className="h-4 w-4" />
-                </div>
-                <p className="font-display text-sm font-bold text-imme-ink">{m.title}</p>
-                {m.date ? (
-                  <p className="font-mono text-[11px] uppercase tracking-wider text-imme-muted">{m.date}</p>
-                ) : null}
-                {m.status === "current" ? (
-                  <p className="mt-auto inline-flex items-center gap-1 self-start rounded-full bg-imme-amber px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-white">
-                    We are here
-                  </p>
-                ) : null}
-              </li>
-            );
-          })}
-        </ol>
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          {SELECTED_PROJECTS.map((project) => (
+            <article key={project.id} className="flex h-full flex-col rounded-imme border border-imme-line bg-white p-6 shadow-imme-card">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-imme-navy/[0.06] text-imme-navy">
+                <ToolboxIcon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 font-display text-base font-bold leading-snug text-imme-navy">{project.title}</h3>
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-imme-amber">
+                Client — {project.client}, {project.clientCountry}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
 /* ----------------------------------------------------------------- */
-/* Latest News (Brief §5.1)                                           */
+/* Partnership strip                                                  */
 /* ----------------------------------------------------------------- */
 
-function LatestNews() {
-  const featured = IMME_NEWS[0];
-  if (!featured) {
-    return null;
-  }
+function PartnershipStrip() {
   return (
-    <section aria-labelledby="latest-update" className="bg-imme-concrete">
-      <div className="imme-container py-14 sm:py-20">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="imme-eyebrow">Latest update</p>
-            <h2 id="latest-update" className="imme-h2 mt-2">
-              From the project office
-            </h2>
-          </div>
-          <Link href="/news" className="imme-btn-secondary self-start lg:self-end">
-            All news
-            <ArrowRightIcon className="h-4 w-4" />
-          </Link>
+    <section aria-labelledby="partnership-strip" className="bg-imme-concrete">
+      <div className="imme-container flex flex-col gap-8 py-14 sm:py-20 lg:flex-row lg:items-center lg:justify-between">
+        <div className="max-w-2xl">
+          <p className="imme-eyebrow">International technical partnerships</p>
+          <h2 id="partnership-strip" className="imme-h2 mt-2">
+            Korean engineering expertise, on call.
+          </h2>
+          <p className="mt-4 text-[15px] leading-7 text-imme-muted">
+            Our on-call Korean experts have extensive experience in the planning, design, construction, operation
+            and maintenance of expressways and bridges, as well as infrastructure asset management systems.
+          </p>
         </div>
-
-        <article className="mt-8 grid gap-6 rounded-imme border border-imme-line bg-white p-6 shadow-imme-card lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center rounded-full bg-imme-navy px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-white">
-                {featured.category}
-              </span>
-              <span className="font-mono text-[11px] uppercase tracking-wider text-imme-muted">
-                {featured.date}
-              </span>
-            </div>
-            <h3 className="mt-4 font-display text-xl font-bold text-imme-navy sm:text-2xl">
-              {featured.title}
-            </h3>
-            <p className="mt-3 text-[15px] leading-7 text-imme-muted">{featured.summary}</p>
-            <Link href="/news" className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-imme-navy hover:text-imme-amber">
-              Read more updates
-              <ArrowRightIcon className="h-4 w-4" />
-            </Link>
-          </div>
-          <aside className="rounded-imme bg-imme-navy p-5 text-white">
-            <p className="imme-eyebrow text-imme-amber-300">Project pulse</p>
-            <ul className="mt-3 space-y-3 text-sm">
-              <li className="flex items-baseline justify-between gap-3">
-                <span className="text-white/70">Status</span>
-                <span className="font-mono uppercase tracking-wider text-imme-amber-300">
-                  {IMME_CURRENT_STEP.title}
-                </span>
-              </li>
-              <li className="flex items-baseline justify-between gap-3">
-                <span className="text-white/70">Next milestone</span>
-                <span className="font-mono uppercase tracking-wider">
-                  Final Manual · Nov 2025
-                </span>
-              </li>
-              <li className="flex items-baseline justify-between gap-3">
-                <span className="text-white/70">Handover</span>
-                <span className="font-mono uppercase tracking-wider">Apr 2026</span>
-              </li>
-            </ul>
-          </aside>
-        </article>
+        <Link href="/partnerships" className="imme-btn-primary self-start lg:self-auto">
+          Explore the partnership
+          <ArrowRightIcon className="h-4 w-4" />
+        </Link>
       </div>
     </section>
   );
@@ -523,14 +373,14 @@ function ClosingCta() {
     <section aria-label="Get in touch" className="bg-imme-navy text-white">
       <div className="imme-container flex flex-col gap-6 py-14 sm:py-16 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-2xl">
-          <p className="imme-eyebrow text-imme-amber-300">A program, not a report</p>
+          <p className="imme-eyebrow text-imme-amber-300">Let&apos;s build something durable</p>
           <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">
-            Practical tools for Uganda&apos;s expressway sector — designed for the field, not the shelf.
+            Practical engineering and digital solutions for Uganda&apos;s infrastructure sector.
           </h2>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <Link href="/about" className="imme-btn-amber">
-            About the project
+          <Link href="/team" className="imme-btn-amber">
+            Meet the team
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
           <Link
