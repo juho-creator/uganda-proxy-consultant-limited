@@ -13,11 +13,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Contact Us"
-        title="Let's discuss your project."
-        description="Send us a message and our team will respond as soon as possible."
-      />
+      <PageHero title="Contact Us" />
 
       <section className="py-20 sm:py-28">
         <Container>

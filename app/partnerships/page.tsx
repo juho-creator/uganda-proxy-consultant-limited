@@ -15,11 +15,7 @@ export const metadata: Metadata = {
 export default function PartnershipsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="International Technical Partnerships"
-        title="International expertise, applied to local infrastructure challenges."
-        description="Proxy Consultants Ltd has established strategic partnerships with experienced engineering professionals and subject matter experts from the Republic of Korea."
-      />
+      <PageHero title="International Technical Partnerships" />
 
       <section className="py-20 sm:py-28">
         <Container>

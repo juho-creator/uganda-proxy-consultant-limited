@@ -4,7 +4,7 @@ import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
-import { CLIENTS, SECTORS_SERVED } from "@/lib/content";
+import { CLIENTS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Clients & Partners",
@@ -15,16 +15,10 @@ export const metadata: Metadata = {
 export default function ClientsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Clients & Partners"
-        title="Working alongside government institutions and international engineering firms."
-      />
+      <PageHero title="Clients & Partners" />
 
       <section className="py-20 sm:py-28">
         <Container>
-          <Reveal>
-            <SectionHeading eyebrow="Who We Work With" title="Clients and partners" />
-          </Reveal>
           {/* Flexible logo/name grid — ready to extend as new clients are added. */}
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {CLIENTS.map((client, index) => (
@@ -43,17 +37,6 @@ export default function ClientsPage() {
                 </div>
               </Reveal>
             ))}
-          </div>
-
-          <div className="mt-16 border-t border-ink-100 pt-10">
-            <p className="text-sm font-semibold uppercase tracking-widest text-ink-400">Sectors served</p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {SECTORS_SERVED.map((sector) => (
-                <span key={sector} className="border border-ink-200 px-4 py-2 text-sm font-medium text-ink-700">
-                  {sector}
-                </span>
-              ))}
-            </div>
           </div>
         </Container>
       </section>

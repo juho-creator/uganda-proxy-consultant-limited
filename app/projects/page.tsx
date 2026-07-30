@@ -14,11 +14,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Selected Projects"
-        title="Consultancy assignments delivered for Uganda's expressway network."
-        description="A selection of assignments completed with international engineering partners and government institutions."
-      />
+      <PageHero title="Selected Projects" />
 
       <section className="py-20 sm:py-28">
         <Container>

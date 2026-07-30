@@ -16,11 +16,7 @@ export default function ExperiencePage() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Our Experience"
-        title="Practical experience across Uganda's transport infrastructure sector."
-        description="Our work spans planning, engineering, operations, policy and digital delivery for nationally significant infrastructure programmes."
-      />
+      <PageHero title="Our Experience" />
 
       <section className="py-20 sm:py-28">
         <Container>

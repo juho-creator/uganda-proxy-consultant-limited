@@ -13,10 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="About Us"
-        title="A Ugandan engineering consultancy, built for infrastructure and digital delivery."
-      />
+      <PageHero title="Who We Are" />
 
       <section className="py-20 sm:py-28">
         <Container>

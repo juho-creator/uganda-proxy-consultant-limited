@@ -20,7 +20,7 @@ const TEAM_PLACEHOLDERS = [
 export default function TeamPage() {
   return (
     <>
-      <PageHero eyebrow="Our Team" title="Our Team" />
+      <PageHero title="Our Team" />
 
       <section className="py-20 sm:py-28">
         <Container>

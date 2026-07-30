@@ -14,11 +14,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Our Services"
-        title="Engineering and digital services for transport infrastructure programmes."
-        description="A full range of consultancy capabilities, from transport planning and engineering design through to operations, asset management and digital delivery."
-      />
+      <PageHero title="Our Services" />
 
       <section className="py-20 sm:py-28">
         <Container>

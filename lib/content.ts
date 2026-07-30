@@ -268,14 +268,40 @@ export type Client = {
   name: string;
   location: string;
   logo: string;
+  website: string;
 };
 
 export const CLIENTS: Client[] = [
-  { name: "Dohwa Engineering Co. Ltd", location: "Republic of Korea", logo: "/dohwa-logo.png" },
-  { name: "Korea Expressway Corporation", location: "Republic of Korea", logo: "/kec-logo.png" },
-  { name: "CHEIL Engineering", location: "Republic of Korea", logo: "/cheil-logo.png" },
-  { name: "Ministry of Works and Transport (MoWT)", location: "Uganda", logo: "/mowt_logo.png" },
-  { name: "Uganda National Roads Authority (UNRA)", location: "Uganda", logo: "/unra-logo.png" },
+  {
+    name: "Dohwa Engineering Co. Ltd",
+    location: "Republic of Korea",
+    logo: "/dohwa-logo.png",
+    website: "https://www.dohwa.co.kr",
+  },
+  {
+    name: "Korea Expressway Corporation",
+    location: "Republic of Korea",
+    logo: "/kec-logo.png",
+    website: "https://www.ex.co.kr",
+  },
+  {
+    name: "CHEIL Engineering",
+    location: "Republic of Korea",
+    logo: "/cheil-logo.png",
+    website: "http://www.cheileng.com/",
+  },
+  {
+    name: "Ministry of Works and Transport (MoWT)",
+    location: "Uganda",
+    logo: "/mowt_logo.png",
+    website: "https://works.go.ug/",
+  },
+  {
+    name: "Uganda National Roads Authority (UNRA)",
+    location: "Uganda",
+    logo: "/unra-logo.png",
+    website: "https://www.unra.go.ug/",
+  },
 ];
 
 export const SECTORS_SERVED = [

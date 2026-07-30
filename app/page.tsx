@@ -26,7 +26,7 @@ export default function HomePage() {
         <Container className="relative py-16">
           <TypewriterHeading
             text="Engineering Uganda’s transport infrastructure, and its digital future."
-            className="max-w-3xl font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+            className="max-w-3xl font-display text-4xl font-semibold leading-[1.5] tracking-tight sm:text-5xl sm:leading-[1.5] lg:text-6xl lg:leading-[1.5]"
           />
         </Container>
       </section>
@@ -83,7 +83,13 @@ export default function HomePage() {
           <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
             {CLIENTS.map((client, index) => (
               <Reveal key={client.name} delay={index * 60}>
-                <div className="flex h-full flex-col items-center justify-center gap-3 border border-ink-100 px-4 py-6">
+                <a
+                  href={client.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${client.name} (opens in a new tab)`}
+                  className="flex h-full flex-col items-center justify-center gap-3 border border-ink-100 px-4 py-6 transition-colors hover:border-ink-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
+                >
                   <div className="relative h-14 w-full">
                     <Image
                       src={client.logo}
@@ -94,7 +100,7 @@ export default function HomePage() {
                     />
                   </div>
                   <p className="sr-only">{client.name}</p>
-                </div>
+                </a>
               </Reveal>
             ))}
           </div>

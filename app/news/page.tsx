@@ -31,11 +31,7 @@ const NEWS_PLACEHOLDERS = [
 export default function NewsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="News & Insights"
-        title="Updates and technical insights from Proxy Consultants Ltd."
-        description="This section will be updated with project news, technical articles and sector insights."
-      />
+      <PageHero title="News & Insights" />
 
       <section className="py-20 sm:py-28">
         <Container>
