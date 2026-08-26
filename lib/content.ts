@@ -11,9 +11,9 @@ export const COMPANY = {
   summary:
     "A Ugandan engineering consultancy providing innovative, sustainable and high-quality solutions in transport infrastructure and digital technologies.",
   email: "proxyconsultantsltd@gmail.com",
-  phone: "+256 700 000 000",
-  address: "Kampala, Uganda",
-  addressNote: "Full office address to be confirmed",
+  phone: "+256 779 002985",
+  address: "Plot 1402, Nabe Road, Kiwatule, Kampala, Uganda",
+  addressNote: "P.O. Box 112305, Nakawa, Kampala",
 } as const;
 
 export type NavLeaf = { label: string; href: string; description?: string };

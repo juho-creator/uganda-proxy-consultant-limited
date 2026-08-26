@@ -16,6 +16,7 @@ export function SiteFooter() {
           <p className="text-sm font-semibold uppercase tracking-wide text-ink-400">Contact</p>
           <ul className="mt-4 space-y-2.5 text-sm text-ink-300">
             <li>{COMPANY.address}</li>
+            <li>{COMPANY.addressNote}</li>
             <li>
               <a href={`mailto:${COMPANY.email}`} className="transition-colors hover:text-white">
                 {COMPANY.email}

@@ -48,7 +48,6 @@ export default function ContactPage() {
                         <a href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`} className="hover:text-clay-600">
                           {COMPANY.phone}
                         </a>
-                        <span className="mt-0.5 block text-xs text-ink-400">Placeholder &mdash; to be confirmed</span>
                       </dd>
                     </div>
                   </dl>
@@ -58,7 +57,7 @@ export default function ContactPage() {
                 <div className="flex aspect-[4/3] items-center justify-center border border-ink-100 bg-ink-50 text-center">
                   <div>
                     <p className="font-display text-sm font-semibold text-ink-400">Map</p>
-                    <p className="mt-1 px-6 text-xs text-ink-400">Kampala, Uganda &mdash; office location to be added</p>
+                    <p className="mt-1 px-6 text-xs text-ink-400">{COMPANY.address}</p>
                   </div>
                 </div>
               </div>
