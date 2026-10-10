@@ -25,7 +25,7 @@ export default function PartnershipsPage() {
                 <p className="text-base leading-relaxed text-ink-700">
                   Proxy Consultants Ltd has established strategic partnerships with experienced
                   engineering professionals and subject matter experts from the Republic of
-                  Korea, giving clients access to internationally recognised expertise in
+                  Korea, giving clients access to internationally recognized expertise in
                   transport infrastructure development.
                 </p>
               </Reveal>
@@ -54,7 +54,7 @@ export default function PartnershipsPage() {
 
             <Reveal delay={100}>
               <div className="border border-ink-100 bg-ink-50 p-8">
-                <SectionHeading eyebrow="Strengthened By This Partnership" title="Specialised service areas" />
+                <SectionHeading eyebrow="Strengthened By This Partnership" title="Specialized service areas" />
                 <ul className="mt-6 space-y-3">
                   {PARTNERSHIP_SERVICE_AREAS.map((area) => (
                     <li key={area} className="flex items-start gap-2.5 text-sm text-ink-700">

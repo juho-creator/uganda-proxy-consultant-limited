@@ -85,12 +85,12 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="organisation" className="block text-sm font-medium text-ink-800">
-            Organisation
+          <label htmlFor="organization" className="block text-sm font-medium text-ink-800">
+            Organization
           </label>
           <input
-            id="organisation"
-            name="organisation"
+            id="organization"
+            name="organization"
             type="text"
             autoComplete="organization"
             className="mt-1.5 block w-full rounded-sm border-ink-200 text-ink-950 shadow-none focus:border-ink-500 focus:ring-ink-500"
@@ -177,7 +177,7 @@ function SuccessCard({ onReset }: { onReset: () => void }) {
       <div>
         <p className="font-display text-lg font-semibold text-ink-950">Message sent.</p>
         <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink-600">
-          Thank you for getting in touch. We will respond to your enquiry as soon as possible.
+          Thank you for getting in touch. We will respond to your inquiry as soon as possible.
         </p>
       </div>
       <button

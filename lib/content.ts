@@ -71,7 +71,7 @@ export const ABOUT_PARAGRAPHS = [
   "Our experience spans nationally significant infrastructure projects, where we have partnered with international engineering firms and government institutions to develop engineering manuals, operations and maintenance systems, design standards, bridge management frameworks, and Public-Private Partnership (PPP) guidelines for Uganda's expressway network.",
   "A key strength of Proxy Consultants Ltd is our collaboration with a network of experienced engineering specialists from the Republic of Korea, who provide on-call technical support in transport planning, expressway engineering, bridge management systems, operations and maintenance, asset management, infrastructure planning and capacity building. This partnership combines international best practice with local knowledge.",
   "Beyond engineering consultancy, Proxy Consultants Ltd develops websites, digital platforms and custom software solutions that support infrastructure management, institutional operations and business growth.",
-  "We are guided by professionalism, integrity, innovation and technical excellence, and are committed to delivering value to governments, development partners, private sector organisations and international engineering firms across Uganda and East Africa.",
+  "We are guided by professionalism, integrity, innovation and technical excellence, and are committed to delivering value to governments, development partners, private sector organizations and international engineering firms across Uganda and East Africa.",
 ] as const;
 
 export const VALUES = [
@@ -81,7 +81,7 @@ export const VALUES = [
   },
   {
     title: "Integrity",
-    description: "Independent, honest technical judgement, even when it is not the easiest answer.",
+    description: "Independent, honest technical judgment, even when it is not the easiest answer.",
   },
   {
     title: "Innovation",
@@ -89,7 +89,7 @@ export const VALUES = [
   },
   {
     title: "Technical Excellence",
-    description: "Engineering rigour drawn from local experience and internationally recognised expertise.",
+    description: "Engineering rigor drawn from local experience and internationally recognized expertise.",
   },
 ] as const;
 
@@ -128,13 +128,13 @@ export const SERVICES: Service[] = [
   {
     id: "asset-management",
     title: "Infrastructure Asset Management",
-    blurb: "Frameworks that track condition, prioritise investment and extend the service life of public assets.",
+    blurb: "Frameworks that track condition, prioritize investment and extend the service life of public assets.",
     featured: true,
   },
   {
     id: "project-management",
     title: "Project Management Consultancy",
-    blurb: "End-to-end project management support for nationally significant infrastructure programmes.",
+    blurb: "End-to-end project management support for nationally significant infrastructure programs.",
     featured: true,
   },
   {
@@ -150,12 +150,12 @@ export const SERVICES: Service[] = [
   {
     id: "ppp-advisory",
     title: "Public-Private Partnership (PPP) Advisory Services",
-    blurb: "PPP guideline development and feasibility review advisory for expressway and infrastructure programmes.",
+    blurb: "PPP guideline development and feasibility review advisory for expressway and infrastructure programs.",
   },
   {
     id: "standards-manuals",
     title: "Engineering Standards and Manual Development",
-    blurb: "Development and localisation of engineering manuals and design standards for Uganda's context.",
+    blurb: "Development and localization of engineering manuals and design standards for Uganda's context.",
   },
   {
     id: "stakeholder-engagement",
@@ -191,10 +191,10 @@ export const EXPERIENCE_AREAS = [
   "Infrastructure policy development and PPP guideline preparation",
   "Stakeholder consultations and institutional coordination",
   "Technical report preparation and engineering research",
-  "Localisation of international engineering manuals and best practices",
+  "Localization of international engineering manuals and best practices",
   "Pavement, bridge and drainage infrastructure assessments",
   "Capacity building and technical support for transport sector institutions",
-  "Development of digital platforms, websites and customised software solutions",
+  "Development of digital platforms, websites and customized software solutions",
 ] as const;
 
 export type Project = {
@@ -228,11 +228,11 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: "om-manual-localisation",
-    title: "Consultancy Services for the Localisation Review for the Development of Uganda Expressways Operations & Maintenance Manual",
+    id: "om-manual-localization",
+    title: "Consultancy Services for the Localization Review for the Development of Uganda Expressways Operations & Maintenance Manual",
     client: "Korea Expressway Corporation (Republic of Korea)",
     highlights: [
-      "Localisation of Uganda's Expressway O&M Manual",
+      "Localization of Uganda's Expressway O&M Manual",
       "Review of manuals covering pavements, bridges, tunnels, drainage, traffic management and disaster management",
       "Technical editing and adaptation to Ugandan conditions",
     ],
@@ -326,6 +326,6 @@ export const TEAM: TeamMember[] = [
 export const SECTORS_SERVED = [
   "Government institutions",
   "Development partners",
-  "Private sector organisations",
+  "Private sector organizations",
   "International engineering firms",
 ] as const;

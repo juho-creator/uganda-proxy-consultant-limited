@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 type ContactPayload = {
   name?: string;
   email?: string;
-  organisation?: string;
+  organization?: string;
   message?: string;
 };
 
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   const name = payload.name?.trim();
   const email = payload.email?.trim();
   const message = payload.message?.trim();
-  const organisation = payload.organisation?.trim();
+  const organization = payload.organization?.trim();
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: "Name, email and message are required." }, { status: 400 });
@@ -43,11 +43,11 @@ export async function POST(request: Request) {
       from: `"Proxy Consultants Ltd Website" <${smtpUser}>`,
       to: recipient,
       replyTo: email,
-      subject: `New enquiry from ${name}${organisation ? ` (${organisation})` : ""}`,
+      subject: `New inquiry from ${name}${organization ? ` (${organization})` : ""}`,
       text: [
         `Name: ${name}`,
         `Email: ${email}`,
-        `Organisation: ${organisation || "—"}`,
+        `Organization: ${organization || "—"}`,
         "",
         message,
       ].join("\n"),
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
         <div style="font-family: sans-serif; font-size: 14px; color: #1a1a1a; line-height: 1.6;">
           <p><strong>Name:</strong> ${escapeHtml(name)}</p>
           <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-          <p><strong>Organisation:</strong> ${escapeHtml(organisation || "—")}</p>
+          <p><strong>Organization:</strong> ${escapeHtml(organization || "—")}</p>
           <p><strong>Message:</strong></p>
           <p>${escapeHtml(message).replace(/\n/g, "<br />")}</p>
         </div>
