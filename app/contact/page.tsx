@@ -52,14 +52,6 @@ export default function ContactPage() {
                     </div>
                   </dl>
                 </div>
-
-                {/* Map placeholder — replace with an embedded map once the office location is confirmed. */}
-                <div className="flex aspect-[4/3] items-center justify-center border border-ink-100 bg-ink-50 text-center">
-                  <div>
-                    <p className="font-display text-sm font-semibold text-ink-400">Map</p>
-                    <p className="mt-1 px-6 text-xs text-ink-400">{COMPANY.address}</p>
-                  </div>
-                </div>
               </div>
             </Reveal>
           </div>
