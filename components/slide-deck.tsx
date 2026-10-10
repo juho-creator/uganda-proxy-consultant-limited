@@ -2,6 +2,7 @@
 
 import { Children, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { ScrollArrows } from "./scroll-arrows";
 
 const TRANSITION_MS = 650;
 
@@ -150,6 +151,13 @@ export function SlideDeck({ children }: { children: ReactNode }) {
           </button>
         ))}
       </div>
+
+      <ScrollArrows
+        canUp={active > 0}
+        canDown={active < slides.length - 1}
+        onUp={() => goToSlide(activeRef.current - 1)}
+        onDown={() => goToSlide(activeRef.current + 1)}
+      />
     </div>
   );
 }
