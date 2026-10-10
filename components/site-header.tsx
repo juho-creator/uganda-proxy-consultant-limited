@@ -9,6 +9,8 @@ import { MenuOverlay } from "./menu-overlay";
 
 export function SiteHeader() {
   const pathname = usePathname();
+  // The admin area has its own navigation (dashboard, View site, Log out), so the site menu is hidden there.
+  const isAdminArea = pathname === "/admin" || pathname.startsWith("/admin/");
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   // True while the menu is open only because the mouse is hovering it — such a menu closes again
@@ -67,48 +69,52 @@ export function SiteHeader() {
           <span className="hidden font-display text-lg font-semibold text-clay-600 lg:inline">Ltd</span>
         </Link>
 
-        <button
-          ref={triggerRef}
-          type="button"
-          onClick={handleClick}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
-          aria-expanded={open}
-          aria-controls="site-menu"
-          className="inline-flex items-center gap-3 rounded-sm px-2 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-ink-950 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
-        >
-          {open ? "Close" : "Menu"}
-          <span className="relative block h-4 w-6">
-            <span
-              className={clsx(
-                "absolute left-0 top-0 block h-0.5 w-6 bg-current transition-transform duration-300",
-                open && "translate-y-[7px] rotate-45"
-              )}
-            />
-            <span
-              className={clsx(
-                "absolute left-0 top-1/2 block h-0.5 w-6 -translate-y-1/2 bg-current transition-opacity duration-200",
-                open && "opacity-0"
-              )}
-            />
-            <span
-              className={clsx(
-                "absolute bottom-0 left-0 block h-0.5 w-6 bg-current transition-transform duration-300",
-                open && "-translate-y-[7px] -rotate-45"
-              )}
-            />
-          </span>
-        </button>
+        {!isAdminArea && (
+          <button
+            ref={triggerRef}
+            type="button"
+            onClick={handleClick}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+            aria-expanded={open}
+            aria-controls="site-menu"
+            className="inline-flex items-center gap-3 rounded-sm px-2 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-ink-950 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
+          >
+            {open ? "Close" : "Menu"}
+            <span className="relative block h-4 w-6">
+              <span
+                className={clsx(
+                  "absolute left-0 top-0 block h-0.5 w-6 bg-current transition-transform duration-300",
+                  open && "translate-y-[7px] rotate-45"
+                )}
+              />
+              <span
+                className={clsx(
+                  "absolute left-0 top-1/2 block h-0.5 w-6 -translate-y-1/2 bg-current transition-opacity duration-200",
+                  open && "opacity-0"
+                )}
+              />
+              <span
+                className={clsx(
+                  "absolute bottom-0 left-0 block h-0.5 w-6 bg-current transition-transform duration-300",
+                  open && "-translate-y-[7px] -rotate-45"
+                )}
+              />
+            </span>
+          </button>
+        )}
       </Container>
 
-      <MenuOverlay
-        open={open}
-        onClose={close}
-        triggerRef={triggerRef}
-        autoFocus={!openedByHover}
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-      />
+      {!isAdminArea && (
+        <MenuOverlay
+          open={open}
+          onClose={close}
+          triggerRef={triggerRef}
+          autoFocus={!openedByHover}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+        />
+      )}
     </header>
   );
 }
