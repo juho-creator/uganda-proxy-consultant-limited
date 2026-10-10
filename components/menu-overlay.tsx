@@ -16,11 +16,18 @@ export function MenuOverlay({
   open,
   onClose,
   triggerRef,
+  autoFocus = true,
+  onPointerEnter,
+  onPointerLeave,
 }: {
   open: boolean;
   onClose: () => void;
   /** The header's toggle button — excluded from the outside-click check so its own onClick can handle closing without the two handlers fighting each other. */
   triggerRef: React.RefObject<HTMLElement | null>;
+  /** Move focus into the panel on open — off when the menu was opened by mouse hover. */
+  autoFocus?: boolean;
+  onPointerEnter?: (event: React.PointerEvent) => void;
+  onPointerLeave?: (event: React.PointerEvent) => void;
 }) {
   const pathname = usePathname();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -40,14 +47,16 @@ export function MenuOverlay({
 
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("pointerdown", handlePointerDown);
-    const firstLink = panelRef.current?.querySelector("a");
-    (firstLink as HTMLElement | null)?.focus();
+    if (autoFocus) {
+      const firstLink = panelRef.current?.querySelector("a");
+      (firstLink as HTMLElement | null)?.focus();
+    }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [open, onClose]);
+  }, [open, onClose, autoFocus]);
 
   return (
     <div
@@ -57,6 +66,8 @@ export function MenuOverlay({
       aria-modal="true"
       aria-label="Site navigation"
       aria-hidden={!open}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
       className={clsx(
         "fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-ink-100 bg-white text-ink-950 shadow-2xl shadow-ink-950/10 transition-all duration-300 ease-out lg:top-20 lg:max-h-[calc(100vh-5rem)]",
         open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"

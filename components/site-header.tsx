@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { Container } from "./container";
 import { MenuOverlay } from "./menu-overlay";
@@ -11,17 +11,56 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  // True while the menu is open only because the mouse is hovering it — such a menu closes again
+  // once the pointer leaves both the trigger and the panel. A click "pins" it open instead.
+  const [openedByHover, setOpenedByHover] = useState(false);
+  const closeTimerRef = useRef<number | undefined>(undefined);
+
+  const cancelClose = useCallback(() => window.clearTimeout(closeTimerRef.current), []);
+  const close = useCallback(() => {
+    cancelClose();
+    setOpen(false);
+    setOpenedByHover(false);
+  }, [cancelClose]);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    close();
+  }, [pathname, close]);
+
+  useEffect(() => cancelClose, [cancelClose]);
+
+  function handlePointerEnter(event: React.PointerEvent) {
+    if (event.pointerType !== "mouse") return;
+    cancelClose();
+    if (!open) {
+      setOpen(true);
+      setOpenedByHover(true);
+    }
+  }
+
+  function handlePointerLeave(event: React.PointerEvent) {
+    if (event.pointerType !== "mouse" || !openedByHover) return;
+    cancelClose();
+    // Short grace period so the pointer can cross the gap between the button and the panel.
+    closeTimerRef.current = window.setTimeout(close, 250);
+  }
+
+  function handleClick() {
+    if (open && openedByHover) {
+      cancelClose();
+      setOpenedByHover(false);
+      return;
+    }
+    if (open) close();
+    else setOpen(true);
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-100 bg-white/95 text-ink-950 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <Container className="flex h-16 items-center justify-between lg:h-20">
         <Link
           href="/"
-          onClick={() => setOpen(false)}
+          onClick={close}
           className="flex items-baseline gap-2 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-clay-500"
         >
           <span className="font-display text-lg font-semibold tracking-tight lg:text-xl">Proxy Consultants</span>
@@ -31,7 +70,9 @@ export function SiteHeader() {
         <button
           ref={triggerRef}
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={handleClick}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
           aria-expanded={open}
           aria-controls="site-menu"
           className="inline-flex items-center gap-3 rounded-sm px-2 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-ink-950 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
@@ -60,7 +101,14 @@ export function SiteHeader() {
         </button>
       </Container>
 
-      <MenuOverlay open={open} onClose={() => setOpen(false)} triggerRef={triggerRef} />
+      <MenuOverlay
+        open={open}
+        onClose={close}
+        triggerRef={triggerRef}
+        autoFocus={!openedByHover}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+      />
     </header>
   );
 }
