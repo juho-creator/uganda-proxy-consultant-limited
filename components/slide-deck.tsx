@@ -5,6 +5,12 @@ import { clsx } from "clsx";
 import { ScrollArrows } from "./scroll-arrows";
 
 const TRANSITION_MS = 650;
+/**
+ * One trackpad swipe or fast wheel flick fires a continuous stream of wheel events (including
+ * momentum that keeps arriving after the finger lifts). Events closer together than this belong
+ * to the same gesture, and a gesture may move at most one slide.
+ */
+const GESTURE_GAP_MS = 200;
 
 /**
  * Fullscreen scroll-snap slideshow for the homepage: each direct child becomes one
@@ -21,6 +27,7 @@ export function SlideDeck({ children }: { children: ReactNode }) {
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   const animatingRef = useRef(false);
+  const lastWheelAtRef = useRef(0);
   const slides = Children.toArray(children);
 
   const goToSlide = useCallback(
@@ -53,6 +60,10 @@ export function SlideDeck({ children }: { children: ReactNode }) {
     }
 
     function handleWheel(event: WheelEvent) {
+      const now = performance.now();
+      const isNewGesture = now - lastWheelAtRef.current > GESTURE_GAP_MS;
+      lastWheelAtRef.current = now;
+
       if (animatingRef.current) {
         event.preventDefault();
         return;
@@ -70,6 +81,9 @@ export function SlideDeck({ children }: { children: ReactNode }) {
       if ((direction > 0 && !atBottom) || (direction < 0 && !atTop)) return;
 
       event.preventDefault();
+      // Only the start of a gesture changes slides — the rest of its stream (and any momentum) is
+      // swallowed, so a single scroll can never skip past a page.
+      if (!isNewGesture) return;
       goToSlide(activeRef.current + direction);
     }
 
