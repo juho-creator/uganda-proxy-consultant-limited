@@ -304,25 +304,6 @@ export const CLIENTS: Client[] = [
   },
 ];
 
-export type TeamMember = {
-  name: string;
-  title: string;
-  bio: string;
-};
-
-export const TEAM: TeamMember[] = [
-  {
-    name: "Ainembabazi Emmanuel",
-    title: "Managing Director",
-    bio: "Ainembabazi Emmanuel is a Professional Project Management Specialist and infrastructure development professional with over a decade of experience in Uganda's engineering and transport infrastructure sector. He began his career in 2014 with Centre for Infrastructure Consulting Ltd (CIC) as Projects Coordinator, overseeing the Jinja Nile Bridge construction project and later supporting the design and supervision of several bridge projects across Uganda. In 2019, he joined Korea Expressway Corporation as Business Development Manager – Uganda, serving as Branch Manager and Project Director for the Development of the Expressway Master Plan for Uganda, with responsibility for project management, finance and administration, taxation oversight, stakeholder engagement and conflict resolution. He has worked with leading international engineering and infrastructure organizations including Korea Expressway Corporation, Kyong Dong Engineering and Dohwa Engineering. He is the Founder and Managing Director of Proxy Consultants Ltd, where he leads the company's infrastructure consultancy and project management services while facilitating collaboration between local and international expertise.",
-  },
-  {
-    name: "Moses Kisembo Muyonjo",
-    title: "Civil Engineer",
-    bio: "Moses Kisembo Muyonjo is a Civil Engineer with eighteen years of practical experience in the road construction industry, gained across projects in Uganda and South Sudan in both office and site roles for contractors and consulting firms. He is a Corporate Member of the Uganda Institution of Professional Engineers (UIPE) and a Registered Engineer with the Engineers Registration Board, and holds memberships with the Institute of Highway Engineers (IHE) and the Chartered Institution of Highways and Transportation (CIHT). He also serves as a Road Safety Audit Team Leader and Safe Roads Practitioner with the International Road Federation (IRF).",
-  },
-];
-
 export const SECTORS_SERVED = [
   "Government institutions",
   "Development partners",
