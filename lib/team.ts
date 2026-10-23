@@ -27,6 +27,8 @@ export type TeamMember = {
   title: string;
   /** One-sentence introduction shown as the lead line. */
   summary: string;
+  /** One sentence on what sets them apart, shown on their Our Team card (falls back to the summary). */
+  highlight?: string;
   /** Career background, one short paragraph per entry. */
   bio: string[];
   /** Labeled personal/contact details, e.g. Profession, Citizenship, Email. */

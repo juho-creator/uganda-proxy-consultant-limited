@@ -106,6 +106,7 @@ export async function parseTeamForm(form: FormData, id: string, existing: TeamMe
   const name = requireText(form, "name", "Name");
   const title = requireText(form, "title", "Job title");
   const summary = text(form, "summary");
+  const highlight = text(form, "highlight");
   // Paragraphs are separated by a blank line.
   const bio = splitEntries(text(form, "bio"), /\n\s*\n/);
   const lists = parseLists(String(form.get("lists") ?? "[]"));
@@ -113,7 +114,18 @@ export async function parseTeamForm(form: FormData, id: string, existing: TeamMe
   const experience = parseExperience(String(form.get("experience") ?? "[]"));
 
   const photo = await resolveImage(form, "photo", existing?.photo, uploaded);
-  return { id, name, title, summary, facts, bio, lists, experience, ...(photo ? { photo } : {}) };
+  return {
+    id,
+    name,
+    title,
+    summary,
+    ...(highlight ? { highlight } : {}),
+    facts,
+    bio,
+    lists,
+    experience,
+    ...(photo ? { photo } : {}),
+  };
 }
 
 function parseJsonArray(raw: string, what: string): Record<string, unknown>[] {

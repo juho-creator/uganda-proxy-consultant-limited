@@ -88,7 +88,15 @@ export function TeamForm({ member }: { member?: TeamMember }) {
           <textarea id="factsText" name="factsText" rows={5} defaultValue={factsToText(member?.facts ?? [])} className={inputClass} />
         </Field>
 
-        <Field id="summary" label="Summary" hint="Optional. One sentence introducing them, shown under their name.">
+        <Field
+          id="highlight"
+          label="Card summary"
+          hint="One sentence on what sets them apart, shown on their card on the Our Team page."
+        >
+          <textarea id="highlight" name="highlight" rows={2} defaultValue={member?.highlight} className={inputClass} />
+        </Field>
+
+        <Field id="summary" label="Profile summary" hint="Optional. Shown under their name on their profile page.">
           <textarea id="summary" name="summary" rows={2} defaultValue={member?.summary} className={inputClass} />
         </Field>
 

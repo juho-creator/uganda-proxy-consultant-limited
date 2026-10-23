@@ -39,7 +39,9 @@ export default async function TeamPage() {
                       </h2>
                       {/* Spacer keeps "View full profile" aligned at the bottom of every card. */}
                       <div className="flex-1">
-                        {member.summary && <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-600">{member.summary}</p>}
+                        {(member.highlight || member.summary) && (
+                          <p className="mt-3 text-sm leading-relaxed text-ink-600">{member.highlight || member.summary}</p>
+                        )}
                       </div>
                       <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-clay-600 transition-colors group-hover:text-clay-700">
                         View full profile
