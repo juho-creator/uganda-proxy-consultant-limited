@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { SectionNav } from "@/components/team/section-nav";
-import { FactList, ListBody, MemberPhoto, sectionId } from "@/components/team/team-sections";
+import { FactList, ListBody, MemberPhoto, RoleTitle, sectionId } from "@/components/team/team-sections";
 import { WorkTimeline } from "@/components/team/work-timeline";
 import { getTeamMember } from "@/lib/team";
 
@@ -44,7 +44,9 @@ export default async function TeamMemberPage({ params }: Props) {
           <div className="mt-8 grid gap-8 md:grid-cols-[14rem_1fr] md:gap-12">
             <MemberPhoto member={member} className="w-full max-w-[14rem] bg-white" />
             <div>
-              <p className="font-display text-sm font-semibold uppercase tracking-widest text-clay-600">{member.title}</p>
+              <p className="font-display text-sm font-semibold uppercase leading-relaxed tracking-widest text-clay-600">
+                <RoleTitle title={member.title} />
+              </p>
               <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink-950 sm:text-4xl">{member.name}</h1>
               {member.summary && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-700">{member.summary}</p>}
               {member.facts.length > 0 && (

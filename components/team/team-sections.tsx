@@ -15,6 +15,19 @@ export function sectionId(label: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+/** Renders a role, breaking long combined roles after " & " (e.g. "Managing Director &" / "Professional …"). */
+export function RoleTitle({ title }: { title: string }) {
+  const split = title.indexOf(" & ");
+  if (split === -1) return <>{title}</>;
+  return (
+    <>
+      {title.slice(0, split)} &amp;
+      <br />
+      {title.slice(split + 3)}
+    </>
+  );
+}
+
 export function MemberPhoto({ member, className }: { member: TeamMember; className?: string }) {
   if (member.photo) {
     return <ShimmerImage src={member.photo} alt={member.name} className={clsx("aspect-[4/5] border border-ink-100", className)} />;
