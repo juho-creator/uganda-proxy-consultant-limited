@@ -60,7 +60,7 @@ export default async function TeamMemberPage({ params }: Props) {
       {/* Profile body */}
       <section className="py-14 sm:py-20">
         <Container className="grid gap-12 lg:grid-cols-[13rem_1fr] lg:gap-16">
-          {sections.length > 1 && (
+          {sections.length > 0 && (
             <div className="hidden lg:block">
               <SectionNav sections={sections} />
             </div>
