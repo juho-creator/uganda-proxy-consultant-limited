@@ -3,6 +3,22 @@ import { deleteImages, deleteUnusedImages, readJson, writeJson } from "./uploads
 
 export type TeamList = { label: string; items: string[] };
 
+/** A labeled detail such as "Date of birth" or "Email", shown under the member's title. */
+export type TeamFact = { label: string; value: string };
+
+/** One position in a member's employment record. Optional fields are hidden when empty. */
+export type TeamExperience = {
+  period: string;
+  position: string;
+  organization: string;
+  project?: string;
+  client?: string;
+  country?: string;
+  reference?: string;
+  description?: string;
+  activities: string[];
+};
+
 export type TeamMember = {
   id: string;
   name: string;
@@ -11,8 +27,12 @@ export type TeamMember = {
   summary: string;
   /** Career background, one short paragraph per entry. */
   bio: string[];
+  /** Labeled personal/contact details, e.g. Profession, Citizenship, Email. */
+  facts: TeamFact[];
   /** Headed lists shown under the bio, e.g. "Education" or "Professional memberships". */
   lists: TeamList[];
+  /** Employment record, most recent first. */
+  experience: TeamExperience[];
   /** Portrait served from /api/images. */
   photo?: string;
 };
@@ -21,7 +41,9 @@ export type TeamMember = {
 const TEAM_FILE = path.join(process.cwd(), "data", "team.json");
 
 export async function getTeam(): Promise<TeamMember[]> {
-  return readJson<TeamMember[]>(TEAM_FILE);
+  const team = await readJson<TeamMember[]>(TEAM_FILE);
+  // Older entries may predate facts/experience; default them so callers can rely on arrays.
+  return team.map((member) => ({ ...member, facts: member.facts ?? [], lists: member.lists ?? [], experience: member.experience ?? [] }));
 }
 
 export async function getTeamMember(id: string): Promise<TeamMember | null> {

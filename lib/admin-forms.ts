@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { isIsoDate } from "./article-date";
 import { isAdminSession } from "./admin-auth";
 import type { Article, ArticleBlock } from "./news";
-import type { TeamList, TeamMember } from "./team";
+import type { TeamExperience, TeamFact, TeamList, TeamMember } from "./team";
 import { ImageUploadError, deleteImages, isStoredImageSrc, saveImage } from "./uploads";
 
 // Shared parsing for the admin create/edit endpoints. Forms arrive as multipart data so images can
@@ -109,9 +109,56 @@ export async function parseTeamForm(form: FormData, id: string, existing: TeamMe
   // Paragraphs are separated by a blank line.
   const bio = splitEntries(text(form, "bio"), /\n\s*\n/);
   const lists = parseLists(String(form.get("lists") ?? "[]"));
+  const facts = parseFacts(String(form.get("facts") ?? "[]"));
+  const experience = parseExperience(String(form.get("experience") ?? "[]"));
 
   const photo = await resolveImage(form, "photo", existing?.photo, uploaded);
-  return { id, name, title, summary, bio, lists, ...(photo ? { photo } : {}) };
+  return { id, name, title, summary, facts, bio, lists, experience, ...(photo ? { photo } : {}) };
+}
+
+function parseJsonArray(raw: string, what: string): Record<string, unknown>[] {
+  let incoming: unknown;
+  try {
+    incoming = JSON.parse(raw);
+  } catch {
+    throw new FormError(`${what} are malformed.`);
+  }
+  if (!Array.isArray(incoming)) throw new FormError(`${what} are malformed.`);
+  return incoming.filter((entry): entry is Record<string, unknown> => typeof entry === "object" && entry !== null);
+}
+
+function cleanString(value: unknown) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function cleanStrings(value: unknown) {
+  return Array.isArray(value) ? value.map(cleanString).filter(Boolean) : [];
+}
+
+/** Facts arrive as JSON `[{ label, value }]`; incomplete rows are dropped. */
+function parseFacts(raw: string): TeamFact[] {
+  return parseJsonArray(raw, "Details").flatMap((fact) => {
+    const label = cleanString(fact.label);
+    const value = cleanString(fact.value);
+    return label && value ? [{ label, value }] : [];
+  });
+}
+
+/** Experience arrives as JSON entries; each needs at least a position or organization. */
+function parseExperience(raw: string): TeamExperience[] {
+  return parseJsonArray(raw, "Employment entries").flatMap((entry) => {
+    const position = cleanString(entry.position);
+    const organization = cleanString(entry.organization);
+    if (!position && !organization) return [];
+    const optional = (["project", "client", "country", "reference", "description"] as const).reduce<Partial<TeamExperience>>(
+      (fields, key) => {
+        const value = cleanString(entry[key]);
+        return value ? { ...fields, [key]: value } : fields;
+      },
+      {}
+    );
+    return [{ period: cleanString(entry.period), position, organization, ...optional, activities: cleanStrings(entry.activities) }];
+  });
 }
 
 /** Lists arrive as JSON `[{ label, items }]`; lists without a heading or any items are dropped. */

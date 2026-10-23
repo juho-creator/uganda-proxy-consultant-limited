@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { clsx } from "clsx";
 import { DeleteButton, ErrorMessage, Field, FormActions, inputClass, smallButtonClass, useAdminRequest } from "./form-ui";
+import { ExperienceEditor, fromEditableExperience, toEditableExperience, type EditableExperience } from "./experience-editor";
 import { ImagePicker } from "./image-picker";
-import type { TeamMember } from "@/lib/team";
+import type { TeamFact, TeamMember } from "@/lib/team";
 
 /** A list being edited: items are kept as one-per-line text until the form is submitted. */
 type EditableList = { key: number; label: string; items: string };
@@ -17,11 +18,25 @@ function toEditableLists(member?: TeamMember): EditableList[] {
   return member.lists.map((list) => ({ key: nextListKey++, label: list.label, items: list.items.join("\n") }));
 }
 
+/** Details are edited as "Label: value" lines. */
+function factsToText(facts: TeamFact[]) {
+  return facts.map((fact) => `${fact.label}: ${fact.value}`).join("\n");
+}
+
+function textToFacts(text: string): TeamFact[] {
+  return text.split("\n").flatMap((line) => {
+    const separator = line.indexOf(":");
+    if (separator === -1) return [];
+    return [{ label: line.slice(0, separator).trim(), value: line.slice(separator + 1).trim() }];
+  });
+}
+
 /** Add (no `member`) or edit a team member shown on the Our Team page. */
 export function TeamForm({ member }: { member?: TeamMember }) {
   const router = useRouter();
   const { send, pending, error } = useAdminRequest();
   const [lists, setLists] = useState<EditableList[]>(() => toEditableLists(member));
+  const [experience, setExperience] = useState<EditableExperience[]>(() => toEditableExperience(member?.experience ?? []));
   const endpoint = member ? `/api/admin/team/${encodeURIComponent(member.id)}` : "/api/admin/team";
 
   function updateList(key: number, changes: Partial<EditableList>) {
@@ -40,6 +55,9 @@ export function TeamForm({ member }: { member?: TeamMember }) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     data.set("lists", JSON.stringify(lists.map((list) => ({ label: list.label, items: list.items.split("\n") }))));
+    data.set("facts", JSON.stringify(textToFacts(String(data.get("factsText") ?? ""))));
+    data.delete("factsText");
+    data.set("experience", JSON.stringify(fromEditableExperience(experience)));
     send(endpoint, { method: member ? "PUT" : "POST", body: data }, () => {
       router.push("/admin");
       router.refresh();
@@ -60,6 +78,14 @@ export function TeamForm({ member }: { member?: TeamMember }) {
 
         <Field label="Photo">
           <ImagePicker name="photo" initialSrc={member?.photo} aspectClass="aspect-[4/5] max-w-[15rem]" />
+        </Field>
+
+        <Field
+          id="factsText"
+          label="Details"
+          hint="One per line as “Label: value”, e.g. “Citizenship: Ugandan”. Emails, links and phone numbers become clickable."
+        >
+          <textarea id="factsText" name="factsText" rows={5} defaultValue={factsToText(member?.facts ?? [])} className={inputClass} />
         </Field>
 
         <Field id="summary" label="Summary" hint="One sentence introducing them, shown as the lead line.">
@@ -129,6 +155,10 @@ export function TeamForm({ member }: { member?: TeamMember }) {
               + Add list
             </button>
           </div>
+        </Field>
+
+        <Field label="Employment record" hint="Most recent first. Each entry expands on the Team page to show its full details.">
+          <ExperienceEditor entries={experience} onChange={setExperience} />
         </Field>
       </fieldset>
 
