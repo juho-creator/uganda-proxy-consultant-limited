@@ -132,13 +132,6 @@ export function ListBody({ list }: { list: TeamList }) {
   );
 }
 
-const YEAR_RE = /\b(?:19|20)\d{2}\b/g;
-
-/** The year a position started, e.g. "August 2026 – present" → "2026". */
-export function startYear(entry: TeamExperience) {
-  return entry.period.match(YEAR_RE)?.[0] ?? "";
-}
-
 export function isCurrent(entry: TeamExperience) {
   return /present|to-?date/i.test(entry.period);
 }
