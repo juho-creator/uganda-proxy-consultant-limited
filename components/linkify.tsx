@@ -1,8 +1,9 @@
 import { Fragment } from "react";
 
-// Labeled links written as [label](https://…), then bare URLs, email addresses and international
-// phone numbers (e.g. "+256 772 877126").
-const TOKEN_RE = /(\[[^\]]+\]\(https?:\/\/[^)\s]+\)|https?:\/\/[^\s]+|[\w.+-]+@[\w-]+(?:\.[\w-]+)+|\+\d[\d\s-]{7,}\d)/g;
+// Labeled links written as [label](https://…), then bare URLs, email addresses, international
+// phone numbers (e.g. "+256 772 877126") and Ugandan local mobile numbers (e.g. "0702-971648").
+const TOKEN_RE =
+  /(\[[^\]]+\]\(https?:\/\/[^)\s]+\)|https?:\/\/[^\s]+|[\w.+-]+@[\w-]+(?:\.[\w-]+)+|\+\d[\d\s-]{7,}\d|\b0\d{3}[-\s]?\d{6}\b)/g;
 const LABELED_LINK_RE = /^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/;
 const TRAILING_PUNCTUATION_RE = /[.,;:)]+$/;
 
