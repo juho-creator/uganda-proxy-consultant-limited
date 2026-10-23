@@ -171,15 +171,15 @@ export function ExperienceCard({ entry }: { entry: TeamExperience }) {
       {(entry.organization || entry.client) && (
         <dl className="mt-4 space-y-1.5 border-t border-ink-100 pt-4 text-sm">
           {entry.organization && (
-            <div>
-              <dt className="sr-only">Company</dt>
-              <dd className="font-semibold text-ink-950">{entry.organization}</dd>
+            <div className="flex gap-1.5">
+              <dt className="shrink-0 font-semibold text-ink-500">Company:</dt>
+              <dd className="text-ink-800">{entry.organization}</dd>
             </div>
           )}
           {entry.client && (
             <div className="flex gap-1.5">
-              <dt className="text-ink-400">Client:</dt>
-              <dd className="text-ink-700">{entry.client}</dd>
+              <dt className="shrink-0 font-semibold text-ink-500">Client:</dt>
+              <dd className="text-ink-800">{entry.client}</dd>
             </div>
           )}
         </dl>

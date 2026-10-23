@@ -195,6 +195,8 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
   const toStrip = (date: number) => ((axisStart - date) / span) * 100;
   const offset = ((axisStart - windowLeft) / span) * 100;
   const dragging = dragPos !== null;
+  const arrowClass =
+    "mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-ink-200 bg-white text-ink-950 transition-colors hover:border-clay-500 hover:text-clay-600 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-ink-200 disabled:hover:text-ink-950";
   const handleDate = dragging ? windowLeft - dragPos * visibleYears : dates[active];
   const years = Array.from({ length: span + 1 }, (_, i) => axisStart - i);
   const activeYear = rawDates[active] !== null ? Math.floor(rawDates[active]!) : null;
@@ -202,90 +204,113 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
 
   return (
     <div>
-      {/* The padding leaves room for the labels of the first and last visible years. */}
-      <div
-        className="relative cursor-pointer touch-none select-none overflow-hidden px-8"
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-      >
-        <div ref={viewportRef} className="relative h-16">
-          <div
-            className={clsx("absolute inset-y-0 left-0", !dragging && "transition-transform duration-500 ease-out")}
-            style={{ width: `${stripWidth}%`, transform: `translateX(-${offset}%)` }}
-          >
-            {/* Track, highlighted up to the handle */}
-            <span aria-hidden="true" className="absolute left-0 right-0 top-[0.6875rem] h-0.5 bg-ink-100" />
-            <span
-              aria-hidden="true"
-              className={clsx("absolute left-0 top-[0.6875rem] h-0.5 bg-clay-500", !dragging && "transition-[width] duration-300")}
-              style={{ width: `${toStrip(handleDate)}%` }}
-            />
+      <div className="flex items-start gap-2 sm:gap-3">
+        {/* Left = more recent, matching the axis direction. */}
+        <button
+          type="button"
+          aria-label="More recent position"
+          disabled={active === 0}
+          onClick={() => select(active - 1)}
+          className={arrowClass}
+        >
+          <span aria-hidden="true">&larr;</span>
+        </button>
 
-            {/* Year ticks and labels */}
-            {years.map((year) => (
-              <div key={year} aria-hidden="true">
-                <span className="absolute top-[1.125rem] h-2 w-px -translate-x-1/2 bg-ink-300" style={{ left: `${toStrip(year)}%` }} />
-                <span
-                  className={clsx(
-                    "absolute top-8 -translate-x-1/2 whitespace-nowrap font-display tabular-nums transition-colors",
-                    year === activeYear ? "text-base font-bold text-ink-950" : "text-sm text-ink-400",
-                  )}
-                  style={{ left: `${toStrip(year)}%` }}
-                >
-                  {year}
-                </span>
-              </div>
-            ))}
-
-            {/* One dot per position */}
-            {dates.map((date, index) => (
-              <span
-                key={index}
-                aria-hidden="true"
-                className={clsx(
-                  "absolute top-[0.4375rem] h-2.5 w-2.5 -translate-x-1/2 rounded-full ring-2 ring-white transition-colors",
-                  date >= handleDate ? "bg-clay-500" : "bg-ink-300",
-                )}
-                style={{ left: `${toStrip(date)}%` }}
-              />
-            ))}
-
-            {/* Handle */}
+        {/* The padding leaves room for the labels of the first and last visible years. */}
+        <div
+          className="relative min-w-0 flex-1 cursor-pointer touch-none select-none overflow-hidden px-8"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          <div ref={viewportRef} className="relative h-16">
             <div
-              role="slider"
-              tabIndex={0}
-              aria-label="Work experience position"
-              aria-valuemin={1}
-              aria-valuemax={entries.length}
-              aria-valuenow={active + 1}
-              aria-valuetext={`${activeEntry?.period}: ${activeEntry?.position}`}
-              onKeyDown={handleKeyDown}
-              className={clsx(
-                "absolute top-0 z-10 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border-2 border-clay-500 bg-white shadow-md shadow-ink-950/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500",
-                dragging ? "scale-110 cursor-grabbing" : "cursor-grab transition-[left,transform] duration-300",
-              )}
-              style={{ left: `${toStrip(handleDate)}%` }}
+              className={clsx("absolute inset-y-0 left-0", !dragging && "transition-transform duration-500 ease-out")}
+              style={{ width: `${stripWidth}%`, transform: `translateX(-${offset}%)` }}
             >
-              <span className="h-2 w-2 rounded-full bg-clay-500" />
+              {/* Track, highlighted up to the handle */}
+              <span aria-hidden="true" className="absolute left-0 right-0 top-[0.6875rem] h-0.5 bg-ink-100" />
+              <span
+                aria-hidden="true"
+                className={clsx("absolute left-0 top-[0.6875rem] h-0.5 bg-clay-500", !dragging && "transition-[width] duration-300")}
+                style={{ width: `${toStrip(handleDate)}%` }}
+              />
+
+              {/* Year ticks and labels */}
+              {years.map((year) => (
+                <div key={year} aria-hidden="true">
+                  <span className="absolute top-[1.125rem] h-2 w-px -translate-x-1/2 bg-ink-300" style={{ left: `${toStrip(year)}%` }} />
+                  <span
+                    className={clsx(
+                      "absolute top-8 -translate-x-1/2 whitespace-nowrap font-display tabular-nums transition-colors",
+                      year === activeYear ? "text-base font-bold text-ink-950" : "text-sm text-ink-400",
+                    )}
+                    style={{ left: `${toStrip(year)}%` }}
+                  >
+                    {year}
+                  </span>
+                </div>
+              ))}
+
+              {/* One dot per position */}
+              {dates.map((date, index) => (
+                <span
+                  key={index}
+                  aria-hidden="true"
+                  className={clsx(
+                    "absolute top-[0.4375rem] h-2.5 w-2.5 -translate-x-1/2 rounded-full ring-2 ring-white transition-colors",
+                    date >= handleDate ? "bg-clay-500" : "bg-ink-300",
+                  )}
+                  style={{ left: `${toStrip(date)}%` }}
+                />
+              ))}
+
+              {/* Handle */}
+              <div
+                role="slider"
+                tabIndex={0}
+                aria-label="Work experience position"
+                aria-valuemin={1}
+                aria-valuemax={entries.length}
+                aria-valuenow={active + 1}
+                aria-valuetext={`${activeEntry?.period}: ${activeEntry?.position}`}
+                onKeyDown={handleKeyDown}
+                className={clsx(
+                  "absolute top-0 z-10 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border-2 border-clay-500 bg-white shadow-md shadow-ink-950/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500",
+                  dragging ? "scale-110 cursor-grabbing" : "cursor-grab transition-[left,transform] duration-300",
+                )}
+                style={{ left: `${toStrip(handleDate)}%` }}
+              >
+                <span className="h-2 w-2 rounded-full bg-clay-500" />
+              </div>
             </div>
           </div>
+
+          {/* Fades hinting at more years beyond the visible window */}
+          {windowLeft < axisStart && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent"
+            />
+          )}
+          {windowLeft - visibleYears > axisEnd && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white to-transparent"
+            />
+          )}
         </div>
 
-        {/* Fades hinting at more years beyond the visible window */}
-        {windowLeft < axisStart && (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent"
-          />
-        )}
-        {windowLeft - visibleYears > axisEnd && (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white to-transparent"
-          />
-        )}
+        <button
+          type="button"
+          aria-label="Earlier position"
+          disabled={active === entries.length - 1}
+          onClick={() => select(active + 1)}
+          className={arrowClass}
+        >
+          <span aria-hidden="true">&rarr;</span>
+        </button>
       </div>
 
       {/* One position at a time; swipe sideways to move between them */}
