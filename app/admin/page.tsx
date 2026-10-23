@@ -89,6 +89,9 @@ export default async function AdminDashboardPage() {
                     canUp={index > 0}
                     canDown={index < team.length - 1}
                   />
+                  <Link href={`/team/${encodeURIComponent(member.id)}`} className="text-xs font-semibold text-ink-500 hover:text-clay-600">
+                    View
+                  </Link>
                   <Link href={`/admin/team/${encodeURIComponent(member.id)}`} className={editLink}>
                     Edit
                   </Link>
