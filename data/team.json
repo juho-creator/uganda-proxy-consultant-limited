@@ -29,11 +29,29 @@
     "id": "moses-kisembo-muyonjo",
     "name": "Moses Kisembo Muyonjo",
     "title": "Civil Engineer",
-    "summary": "Civil Engineer with eighteen years of practical experience in the road construction industry across Uganda and South Sudan.",
+    "summary": "",
     "highlight": "Civil Engineer with eighteen years of practical experience in the road construction industry across Uganda and South Sudan.",
+    "facts": [
+      {
+        "label": "Nationality",
+        "value": "Ugandan"
+      },
+      {
+        "label": "Contact address",
+        "value": "P.O. Box 4014, Kampala, Uganda"
+      },
+      {
+        "label": "Email",
+        "value": "kisembo.muyonjo@gmail.com"
+      },
+      {
+        "label": "Phone",
+        "value": "0702-971648, 0776-971648"
+      }
+    ],
     "bio": [
-      "He has worked in both office and site roles for contractors and consulting firms.",
-      "He also serves as a Road Safety Audit Team Leader and Safe Roads Practitioner with the International Road Federation (IRF)."
+      "Moses Kisembo Muyonjo is a Civil Engineer with eighteen (18) years of practical working experience in the road construction industry, gained on various projects carried out in Uganda and South Sudan.",
+      "He has worked in both office and site environments for contractors and consulting firms."
     ],
     "lists": [
       {
@@ -42,7 +60,9 @@
           "Corporate Member, Uganda Institution of Professional Engineers (UIPE)",
           "Registered Engineer, Engineers Registration Board",
           "Member, Institute of Highway Engineers (IHE)",
-          "Member, Chartered Institution of Highways and Transportation (CIHT)"
+          "Member, Chartered Institution of Highways and Transportation (CIHT)",
+          "Road Safety Audit Team Leader, International Road Federation (IRF)",
+          "Safe Roads Practitioner, International Road Federation (IRF)"
         ]
       }
     ]
@@ -52,7 +72,7 @@
     "name": "Christopher Job Mukuye",
     "title": "Transportation Engineer",
     "summary": "Professional transportation and civil engineer specializing in the planning and modeling of sustainable transportation systems and the design and construction supervision of highways and railway lines.",
-    "highlight": "Multilingual transportation engineer with over 15 years of experience in traffic modeling, surveys and road design, and co-author of Uganda's Non-Motorized Transport design manual.",
+    "highlight": "Multilingual transportation engineer with over 15 years of experience in traffic modeling, surveys and road design.",
     "facts": [
       {
         "label": "Date of birth",
