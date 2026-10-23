@@ -96,7 +96,10 @@ export function TeamForm({ member }: { member?: TeamMember }) {
           <textarea id="bio" name="bio" rows={8} defaultValue={member?.bio.join("\n\n")} className={inputClass} />
         </Field>
 
-        <Field label="Lists" hint="Shown as panels under the background, e.g. Education or Professional memberships. Empty lists are hidden.">
+        <Field
+          label="Lists"
+          hint="Shown as panels under the background, e.g. Education or Professional memberships. Empty lists are hidden. Add a link as [link text](https://…)."
+        >
           <div className="mt-1.5 space-y-3">
             {lists.map((list, index) => (
               <div key={list.key} className="border border-ink-100 bg-ink-50/60 p-4">
