@@ -3,22 +3,26 @@
     "id": "ainembabazi-emmanuel",
     "name": "Ainembabazi Emmanuel",
     "title": "Managing Director",
-    "summary": "Founder and Managing Director of Proxy Consultants Ltd, with over a decade of experience in Uganda's engineering and transport infrastructure sector.",
-    "bio": [
-      "He began his career in 2014 with Centre for Infrastructure Consulting Ltd (CIC) as Projects Coordinator, overseeing the Jinja Nile Bridge construction project and later supporting the design and supervision of several bridge projects across Uganda.",
-      "In 2019, he joined Korea Expressway Corporation as Business Development Manager – Uganda. Serving as Branch Manager and Project Director for the Development of the Expressway Master Plan for Uganda, he was responsible for project management, finance and administration, taxation oversight, stakeholder engagement and conflict resolution.",
-      "Today he leads the company's infrastructure consultancy and project management services, facilitating collaboration between local and international expertise."
-    ],
-    "lists": [
+    "summary": "",
+    "facts": [
       {
-        "label": "Key credentials",
-        "items": [
-          "Professional Project Management Specialist",
-          "Over 10 years in engineering and transport infrastructure",
-          "Worked with Korea Expressway Corporation, Kyong Dong Engineering and Dohwa Engineering"
-        ]
+        "label": "Nationality",
+        "value": "Uganda"
+      },
+      {
+        "label": "Contact",
+        "value": "eainembabazi@gmail.com"
       }
-    ]
+    ],
+    "bio": [
+      "Ainembabazi Emmanuel is a Professional Project Management Specialist and infrastructure development professional with over a decade of experience in Uganda's engineering and transport infrastructure sector.",
+      "He began his career in 2014 with Centre for Infrastructure Consulting Ltd (CIC) as Projects Coordinator, overseeing the coordination of the Jinja Nile Bridge construction project and subsequently supporting the design and supervision of several bridge projects across Uganda.",
+      "In 2019, he joined Korea Expressway Corporation as Business Development Manager – Uganda, serving as Branch Manager and Project Director for the Development of the Expressway Master Plan for Uganda. His responsibilities included project management, finance and administration, taxation oversight, stakeholder engagement and conflict resolution.",
+      "He has worked with leading international engineering and infrastructure organizations including Korea Expressway Corporation, Kyong Dong Engineering and Dohwa Engineering, among others.",
+      "He is the Founder and Managing Director of Proxy Consultants Ltd, where he leads the company's infrastructure consultancy and project management services, while facilitating collaboration between local and international expertise."
+    ],
+    "lists": [],
+    "experience": []
   },
   {
     "id": "moses-kisembo-muyonjo",
