@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
 
 /** What a member's full profile covers, shown as small tags so visitors know what's inside. */
 function profileTopics(member: TeamMember) {
-  return [...member.lists.map((list) => list.label), ...(member.experience.length ? ["Employment record"] : [])];
+  return [...member.lists.map((list) => list.label), ...(member.experience.length ? ["Work experience"] : [])];
 }
 
 export default async function TeamPage() {

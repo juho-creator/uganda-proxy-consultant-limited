@@ -157,7 +157,7 @@ export function TeamForm({ member }: { member?: TeamMember }) {
           </div>
         </Field>
 
-        <Field label="Employment record" hint="Most recent first. Each entry expands on the Team page to show its full details.">
+        <Field label="Work experience" hint="Most recent first. Shown as a scrollable timeline on the member's profile page.">
           <ExperienceEditor entries={experience} onChange={setExperience} />
         </Field>
       </fieldset>

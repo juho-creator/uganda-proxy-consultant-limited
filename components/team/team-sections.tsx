@@ -158,19 +158,12 @@ function ExperienceDetails({ entry }: { entry: TeamExperience }) {
 
 const YEAR_RE = /\b(?:19|20)\d{2}\b/g;
 
-/** Groups consecutive entries by the year they started, e.g. "August 2026 – present" → 2026. */
-function groupByStartYear(entries: TeamExperience[]) {
-  const groups: { year: string; entries: TeamExperience[] }[] = [];
-  for (const entry of entries) {
-    const year = entry.period.match(YEAR_RE)?.[0] ?? "Other";
-    const last = groups[groups.length - 1];
-    if (last?.year === year) last.entries.push(entry);
-    else groups.push({ year, entries: [entry] });
-  }
-  return groups;
+/** The year a position started, e.g. "August 2026 – present" → "2026". */
+export function startYear(entry: TeamExperience) {
+  return entry.period.match(YEAR_RE)?.[0] ?? "";
 }
 
-function isCurrent(entry: TeamExperience) {
+export function isCurrent(entry: TeamExperience) {
   return /present|to-?date/i.test(entry.period);
 }
 
@@ -190,7 +183,7 @@ export function experienceOverview(entries: TeamExperience[]) {
     .join(" · ");
 }
 
-function ExperienceCard({ entry }: { entry: TeamExperience }) {
+export function ExperienceCard({ entry }: { entry: TeamExperience }) {
   const tags = [
     entry.organization && { label: entry.organization, strong: true },
     entry.client && { label: `Client: ${entry.client}` },
@@ -226,34 +219,5 @@ function ExperienceCard({ entry }: { entry: TeamExperience }) {
       )}
       <ExperienceDetails entry={entry} />
     </article>
-  );
-}
-
-/**
- * Employment record as a vertical timeline grouped by start year: year markers on the rail, one
- * card per position with its headline facts visible and the scope/activities one click away.
- */
-export function ExperienceTimeline({ entries }: { entries: TeamExperience[] }) {
-  return (
-    <ol className="relative">
-      {/* The rail */}
-      <span aria-hidden="true" className="absolute bottom-2 left-[0.3125rem] top-2 w-px bg-ink-200 sm:left-[4.8125rem]" />
-      {groupByStartYear(entries).map((group, groupIndex) => (
-        <li key={`${group.year}-${groupIndex}`} className="relative pb-10 last:pb-0 sm:grid sm:grid-cols-[4.5rem_1fr] sm:gap-x-6">
-          <div className="mb-3 flex items-center gap-3 sm:mb-0 sm:block sm:pt-5 sm:text-right">
-            <span
-              aria-hidden="true"
-              className="relative z-10 h-2.5 w-2.5 shrink-0 rounded-full bg-clay-500 ring-4 ring-white sm:absolute sm:left-[4.5rem] sm:top-6"
-            />
-            <span className="font-display text-xl font-semibold text-ink-950 sm:text-2xl">{group.year}</span>
-          </div>
-          <div className="space-y-4 pl-6 sm:pl-6">
-            {group.entries.map((entry, index) => (
-              <ExperienceCard key={`${entry.period}-${entry.position}-${index}`} entry={entry} />
-            ))}
-          </div>
-        </li>
-      ))}
-    </ol>
   );
 }

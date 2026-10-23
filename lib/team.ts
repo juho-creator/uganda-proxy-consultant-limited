@@ -31,7 +31,7 @@ export type TeamMember = {
   facts: TeamFact[];
   /** Headed lists shown under the bio, e.g. "Education" or "Professional memberships". */
   lists: TeamList[];
-  /** Employment record, most recent first. */
+  /** Work experience, most recent first. */
   experience: TeamExperience[];
   /** Portrait served from /api/images. */
   photo?: string;
