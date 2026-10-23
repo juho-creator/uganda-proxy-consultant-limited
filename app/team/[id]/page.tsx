@@ -2,7 +2,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
-import { ExperienceTimeline, FactGrid, ListBody, MemberPhoto, sectionId } from "@/components/team/team-sections";
+import {
+  ExperienceTimeline,
+  FactGrid,
+  ListBody,
+  MemberPhoto,
+  experienceOverview,
+  sectionId,
+} from "@/components/team/team-sections";
 import { getTeamMember } from "@/lib/team";
 
 // Read on each request so changes made in /admin show up immediately.
@@ -105,7 +112,7 @@ export default async function TeamMemberPage({ params }: Props) {
               <section id="employment-record" className="scroll-mt-28">
                 <SectionTitle>Employment record</SectionTitle>
                 <p className="mt-2 text-sm text-ink-500">
-                  {member.experience.length} positions, most recent first. Open an entry for the client, reference and activities.
+                  {experienceOverview(member.experience)}. Most recent first — open a position to see its scope and key activities.
                 </p>
                 <div className="mt-6">
                   <ExperienceTimeline entries={member.experience} />

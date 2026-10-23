@@ -119,72 +119,139 @@ export function ListBody({ list }: { list: TeamList }) {
 }
 
 function ExperienceDetails({ entry }: { entry: TeamExperience }) {
-  // Organization and country are already in the entry's headline.
-  const meta = [
-    { label: "Client", value: entry.client },
-    { label: "Reference", value: entry.reference },
-  ].filter((item): item is { label: string; value: string } => Boolean(item.value));
-  if (meta.length === 0 && !entry.description && entry.activities.length === 0) return null;
-
-  const body = (
-    <div className="space-y-4">
-      {meta.length > 0 && (
-        <dl className="grid gap-x-4 gap-y-1.5 text-sm sm:grid-cols-[6rem_1fr]">
-          {meta.map((item) => (
-            <div key={item.label} className="contents">
-              <dt className="font-semibold text-ink-400">{item.label}</dt>
-              <dd className="text-ink-700">
-                <Linkify text={item.value} />
-              </dd>
-            </div>
-          ))}
-        </dl>
-      )}
-      {entry.description && <p className="text-sm leading-relaxed text-ink-700">{entry.description}</p>}
-      {entry.activities.length > 0 && (
-        <ul className="space-y-1.5">
-          {entry.activities.map((activity) => (
-            <li key={activity} className="flex gap-2.5 text-sm leading-relaxed text-ink-700">
-              <span className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-ink-400" aria-hidden="true" />
-              {activity}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+  // Organization, client and country are already shown on the entry itself.
+  if (!entry.reference && !entry.description && entry.activities.length === 0) return null;
 
   return (
-    <details className="group mt-3">
+    <details className="group mt-4 border-t border-ink-100 pt-3">
       <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-semibold text-clay-600 hover:text-clay-700 [&::-webkit-details-marker]:hidden">
-        <span className="group-open:hidden">View details</span>
+        <span className="group-open:hidden">
+          {entry.activities.length > 0 ? `View scope and ${entry.activities.length} key activities` : "View details"}
+        </span>
         <span className="hidden group-open:inline">Hide details</span>
         <span aria-hidden="true" className="transition-transform group-open:rotate-180">
           &#9662;
         </span>
       </summary>
-      <div className="mt-4 border-l-2 border-ink-100 pl-4">{body}</div>
+      <div className="mt-3 space-y-4">
+        {entry.description && <p className="text-sm leading-relaxed text-ink-700">{entry.description}</p>}
+        {entry.activities.length > 0 && (
+          <ul className="space-y-1.5">
+            {entry.activities.map((activity) => (
+              <li key={activity} className="flex gap-2.5 text-sm leading-relaxed text-ink-700">
+                <span className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
+                {activity}
+              </li>
+            ))}
+          </ul>
+        )}
+        {entry.reference && (
+          <p className="text-sm text-ink-600">
+            <span className="font-semibold text-ink-500">Reference: </span>
+            <Linkify text={entry.reference} />
+          </p>
+        )}
+      </div>
     </details>
   );
 }
 
-/** Employment record as a vertical timeline: headline always visible, details on demand. */
+const YEAR_RE = /\b(?:19|20)\d{2}\b/g;
+
+/** Groups consecutive entries by the year they started, e.g. "August 2026 – present" → 2026. */
+function groupByStartYear(entries: TeamExperience[]) {
+  const groups: { year: string; entries: TeamExperience[] }[] = [];
+  for (const entry of entries) {
+    const year = entry.period.match(YEAR_RE)?.[0] ?? "Other";
+    const last = groups[groups.length - 1];
+    if (last?.year === year) last.entries.push(entry);
+    else groups.push({ year, entries: [entry] });
+  }
+  return groups;
+}
+
+function isCurrent(entry: TeamExperience) {
+  return /present|to-?date/i.test(entry.period);
+}
+
+/** "17 positions · 2009 – present" style overview line for the top of the timeline. */
+export function experienceOverview(entries: TeamExperience[]) {
+  const years = entries.flatMap((entry) => entry.period.match(YEAR_RE) ?? []).map(Number);
+  const span = years.length
+    ? `${Math.min(...years)} – ${entries.some(isCurrent) ? "present" : Math.max(...years)}`
+    : null;
+  const organizations = new Set(entries.map((entry) => entry.organization).filter(Boolean)).size;
+  return [
+    `${entries.length} ${entries.length === 1 ? "position" : "positions"}`,
+    organizations > 1 ? `${organizations} organizations` : null,
+    span,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+function ExperienceCard({ entry }: { entry: TeamExperience }) {
+  const tags = [
+    entry.organization && { label: entry.organization, strong: true },
+    entry.client && { label: `Client: ${entry.client}` },
+    entry.country && { label: entry.country },
+  ].filter((tag): tag is { label: string; strong?: boolean } => Boolean(tag));
+
+  return (
+    <article className="border border-ink-100 bg-white p-5 transition-shadow hover:shadow-md hover:shadow-ink-950/5 sm:p-6">
+      <div className="flex flex-wrap items-center gap-2">
+        <p className="text-xs font-semibold uppercase tracking-widest text-ink-500">{entry.period}</p>
+        {isCurrent(entry) && (
+          <span className="rounded-sm bg-clay-50 px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-wider text-clay-700">
+            Current
+          </span>
+        )}
+      </div>
+      <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-ink-950">{entry.position}</h3>
+      {entry.project && <p className="mt-1.5 text-sm leading-relaxed text-ink-700">{entry.project}</p>}
+      {tags.length > 0 && (
+        <ul className="mt-3 flex flex-wrap gap-1.5">
+          {tags.map((tag) => (
+            <li
+              key={tag.label}
+              className={clsx(
+                "rounded-sm px-2 py-1 text-xs",
+                tag.strong ? "bg-ink-950 font-semibold text-white" : "bg-ink-50 font-medium text-ink-600"
+              )}
+            >
+              {tag.label}
+            </li>
+          ))}
+        </ul>
+      )}
+      <ExperienceDetails entry={entry} />
+    </article>
+  );
+}
+
+/**
+ * Employment record as a vertical timeline grouped by start year: year markers on the rail, one
+ * card per position with its headline facts visible and the scope/activities one click away.
+ */
 export function ExperienceTimeline({ entries }: { entries: TeamExperience[] }) {
   return (
-    <ol className="relative border-l border-ink-200 pl-6 sm:pl-8">
-      {entries.map((entry, index) => (
-        <li key={`${entry.period}-${index}`} className="relative pb-8 last:pb-0">
-          <span
-            aria-hidden="true"
-            className="absolute -left-[calc(1.5rem+4.5px)] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-clay-500 ring-1 ring-clay-500 sm:-left-[calc(2rem+4.5px)]"
-          />
-          <p className="text-xs font-semibold uppercase tracking-widest text-clay-600">{entry.period}</p>
-          <h3 className="mt-1 font-display text-lg font-semibold leading-snug text-ink-950">{entry.position}</h3>
-          {entry.project && <p className="mt-1 text-sm leading-relaxed text-ink-700">{entry.project}</p>}
-          <p className="mt-1 text-sm text-ink-500">
-            {[entry.organization, entry.country].filter(Boolean).join(" · ")}
-          </p>
-          <ExperienceDetails entry={entry} />
+    <ol className="relative">
+      {/* The rail */}
+      <span aria-hidden="true" className="absolute bottom-2 left-[0.3125rem] top-2 w-px bg-ink-200 sm:left-[4.8125rem]" />
+      {groupByStartYear(entries).map((group, groupIndex) => (
+        <li key={`${group.year}-${groupIndex}`} className="relative pb-10 last:pb-0 sm:grid sm:grid-cols-[4.5rem_1fr] sm:gap-x-6">
+          <div className="mb-3 flex items-center gap-3 sm:mb-0 sm:block sm:pt-5 sm:text-right">
+            <span
+              aria-hidden="true"
+              className="relative z-10 h-2.5 w-2.5 shrink-0 rounded-full bg-clay-500 ring-4 ring-white sm:absolute sm:left-[4.5rem] sm:top-6"
+            />
+            <span className="font-display text-xl font-semibold text-ink-950 sm:text-2xl">{group.year}</span>
+          </div>
+          <div className="space-y-4 pl-6 sm:pl-6">
+            {group.entries.map((entry, index) => (
+              <ExperienceCard key={`${entry.period}-${entry.position}-${index}`} entry={entry} />
+            ))}
+          </div>
         </li>
       ))}
     </ol>
