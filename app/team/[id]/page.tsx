@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { SectionNav } from "@/components/team/section-nav";
-import { FactGrid, ListBody, MemberPhoto, sectionId } from "@/components/team/team-sections";
+import { FactList, ListBody, MemberPhoto, sectionId } from "@/components/team/team-sections";
 import { WorkTimeline } from "@/components/team/work-timeline";
 import { getTeamMember } from "@/lib/team";
 
@@ -14,7 +14,7 @@ type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const member = await getTeamMember((await params).id);
-  return member ? { title: `${member.name} – ${member.title}`, description: member.summary } : { title: "Team member not found" };
+  return member ? { title: `${member.name} – ${member.title}`, description: member.summary || `${member.name}, ${member.title} at Proxy Consultants Ltd.` } : { title: "Team member not found" };
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -46,10 +46,10 @@ export default async function TeamMemberPage({ params }: Props) {
             <div>
               <p className="font-display text-sm font-semibold uppercase tracking-widest text-clay-600">{member.title}</p>
               <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink-950 sm:text-4xl">{member.name}</h1>
-              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-700">{member.summary}</p>
+              {member.summary && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-700">{member.summary}</p>}
               {member.facts.length > 0 && (
                 <div className="mt-6 max-w-2xl">
-                  <FactGrid facts={member.facts} />
+                  <FactList facts={member.facts} />
                 </div>
               )}
             </div>

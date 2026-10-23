@@ -105,7 +105,7 @@ export async function parseArticleForm(form: FormData, id: string, existing: Art
 export async function parseTeamForm(form: FormData, id: string, existing: TeamMember | null, uploaded: string[]): Promise<TeamMember> {
   const name = requireText(form, "name", "Name");
   const title = requireText(form, "title", "Job title");
-  const summary = requireText(form, "summary", "Summary");
+  const summary = text(form, "summary");
   // Paragraphs are separated by a blank line.
   const bio = splitEntries(text(form, "bio"), /\n\s*\n/);
   const lists = parseLists(String(form.get("lists") ?? "[]"));

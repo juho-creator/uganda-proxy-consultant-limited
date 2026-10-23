@@ -4,7 +4,7 @@ import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { MemberPhoto } from "@/components/team/team-sections";
-import { getTeam, type TeamMember } from "@/lib/team";
+import { getTeam } from "@/lib/team";
 
 export const metadata: Metadata = {
   title: "Our Team",
@@ -13,11 +13,6 @@ export const metadata: Metadata = {
 
 // Read on each request so changes made in /admin show up immediately.
 export const dynamic = "force-dynamic";
-
-/** What a member's full profile covers, shown as small tags so visitors know what's inside. */
-function profileTopics(member: TeamMember) {
-  return [...member.lists.map((list) => list.label), ...(member.experience.length ? ["Work experience"] : [])];
-}
 
 export default async function TeamPage() {
   const team = await getTeam();
@@ -28,14 +23,9 @@ export default async function TeamPage() {
 
       <section className="py-20 sm:py-28">
         <Container>
-          <p className="max-w-2xl text-lg leading-relaxed text-ink-600">
-            The engineers and specialists behind our work. Select a team member to see their full profile.
-          </p>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {team.map((member, index) => {
               const href = `/team/${encodeURIComponent(member.id)}`;
-              const topics = profileTopics(member);
               return (
                 <Reveal key={member.id} delay={index * 60}>
                   <article className="group relative flex h-full flex-col border border-ink-100 bg-white transition-shadow hover:shadow-lg hover:shadow-ink-950/5">
@@ -47,16 +37,10 @@ export default async function TeamPage() {
                           {member.name}
                         </Link>
                       </h2>
-                      <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-600">{member.summary}</p>
-                      {topics.length > 0 && (
-                        <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Profile covers">
-                          {topics.map((topic) => (
-                            <li key={topic} className="rounded-sm bg-ink-50 px-2 py-1 text-xs font-medium text-ink-600">
-                              {topic}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      {/* Spacer keeps "View full profile" aligned at the bottom of every card. */}
+                      <div className="flex-1">
+                        {member.summary && <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-600">{member.summary}</p>}
+                      </div>
                       <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-clay-600 transition-colors group-hover:text-clay-700">
                         View full profile
                         <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">

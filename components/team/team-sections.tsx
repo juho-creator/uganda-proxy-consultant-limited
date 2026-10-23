@@ -33,18 +33,19 @@ export function MemberPhoto({ member, className }: { member: TeamMember; classNa
   );
 }
 
-export function FactGrid({ facts }: { facts: TeamFact[] }) {
+/** Personal details as bullet points, e.g. "• Nationality: Uganda". */
+export function FactList({ facts }: { facts: TeamFact[] }) {
   return (
-    <dl className="grid gap-px overflow-hidden border border-ink-100 bg-ink-100 sm:grid-cols-2">
+    <ul className="space-y-2.5">
       {facts.map((fact) => (
-        <div key={fact.label} className="bg-white px-4 py-3">
-          <dt className="text-[0.7rem] font-semibold uppercase tracking-widest text-ink-400">{fact.label}</dt>
-          <dd className="mt-1 text-sm font-medium text-ink-900">
-            <Linkify text={fact.value} />
-          </dd>
-        </div>
+        <li key={fact.label} className="flex items-start gap-3 text-base text-ink-800">
+          <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
+          <span>
+            <span className="font-semibold text-ink-950">{fact.label}:</span> <Linkify text={fact.value} />
+          </span>
+        </li>
       ))}
-    </dl>
+    </ul>
   );
 }
 
