@@ -9,11 +9,15 @@
       "In 2019, he joined Korea Expressway Corporation as Business Development Manager – Uganda. Serving as Branch Manager and Project Director for the Development of the Expressway Master Plan for Uganda, he was responsible for project management, finance and administration, taxation oversight, stakeholder engagement and conflict resolution.",
       "Today he leads the company's infrastructure consultancy and project management services, facilitating collaboration between local and international expertise."
     ],
-    "highlightsLabel": "Key credentials",
-    "highlights": [
-      "Professional Project Management Specialist",
-      "Over 10 years in engineering and transport infrastructure",
-      "Worked with Korea Expressway Corporation, Kyong Dong Engineering and Dohwa Engineering"
+    "lists": [
+      {
+        "label": "Key credentials",
+        "items": [
+          "Professional Project Management Specialist",
+          "Over 10 years in engineering and transport infrastructure",
+          "Worked with Korea Expressway Corporation, Kyong Dong Engineering and Dohwa Engineering"
+        ]
+      }
     ]
   },
   {
@@ -25,12 +29,82 @@
       "He has worked in both office and site roles for contractors and consulting firms.",
       "He also serves as a Road Safety Audit Team Leader and Safe Roads Practitioner with the International Road Federation (IRF)."
     ],
-    "highlightsLabel": "Professional memberships",
-    "highlights": [
-      "Corporate Member, Uganda Institution of Professional Engineers (UIPE)",
-      "Registered Engineer, Engineers Registration Board",
-      "Member, Institute of Highway Engineers (IHE)",
-      "Member, Chartered Institution of Highways and Transportation (CIHT)"
+    "lists": [
+      {
+        "label": "Professional memberships",
+        "items": [
+          "Corporate Member, Uganda Institution of Professional Engineers (UIPE)",
+          "Registered Engineer, Engineers Registration Board",
+          "Member, Institute of Highway Engineers (IHE)",
+          "Member, Chartered Institution of Highways and Transportation (CIHT)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "christopher-job-mukuye",
+    "name": "Christopher Job Mukuye",
+    "title": "Transportation Engineer",
+    "summary": "Professional transportation and civil engineer specializing in the planning and modeling of sustainable transportation systems and the design and construction supervision of highways and railway lines.",
+    "bio": [
+      "His career spans transport systems research, traffic engineering and the management of complex, multidisciplinary transportation studies and highway supervision projects, mostly in Uganda, with earlier work in Japan, Rwanda and Ghana.",
+      "On the Expressway Development Master Plan for Uganda, he served as Assistant Project Manager for the national consultant, as Deputy Team Leader of the nationwide traffic surveys (OD surveys at 172 locations and counts at 146 stations, with more than 100 enumerators) and as Assistant Traffic Modeler, building the base traffic model in EMME. He went on to help develop Uganda's integrated expressway manuals with Korea Expressway Corporation, preparing the traffic, road safety and expressway planning guidelines.",
+      "He co-authored Volume VII (Non-Motorized Transport) of the Uganda Road Design Manual and helped produce Uganda's first Non-Motorized Transport Manual for the Ministry of Works and Transport. He currently serves as Traffic Engineer on the feasibility study and detailed design for the capacity improvement of the 30 km Namungoona–Nansana–Wakiso–Kakiri Road, and as Transport/Infrastructure Engineer on the integrated climate-resilient plan for the Royal Mile – Lubiri Cultural and Heritage Centre.",
+      "He is fluent in English and Luganda and has a working knowledge of Japanese."
+    ],
+    "lists": [
+      {
+        "label": "Education",
+        "items": [
+          "MEng, Transport Planning and Engineering — Kyoto University, Japan, 2017 (Distinction)",
+          "BSc, Civil Engineering — Makerere University, 2011 (Second Class Upper)"
+        ]
+      },
+      {
+        "label": "Professional registrations",
+        "items": [
+          "Registered Engineer, Engineers Registration Board of Uganda (REng. 1759)",
+          "Professional Engineer, Uganda Institution of Professional Engineers (PE/1810)"
+        ]
+      },
+      {
+        "label": "Publications",
+        "items": [
+          "Uganda Road Design Manual, Vol. VII: Non-Motorized Transport — Ministry of Works and Transport, 2025 (co-author)",
+          "“Covid-19 and the Transportation Fundamentals” — FIDIC Future Leaders Booklet, 2020",
+          "“Improving Origin-Destination Matrix Estimation through Qualitative Data” — 6th International Symposium on Transportation Reliability, Sydney, 2018",
+          "“Demonstration of Potential Applicability of Qualitative Data in Origin-Destination Matrix Estimation” — 54th JSCE Infrastructure Planning Conference, Nagasaki, 2016"
+        ]
+      },
+      {
+        "label": "Software",
+        "items": [
+          "SIDRA and Vissim (junction and traffic simulation)",
+          "EMME and JICA STRADA (transport demand modeling)",
+          "MATLAB, AutoCAD and Microsoft Office"
+        ]
+      },
+      {
+        "label": "Project experience",
+        "items": [
+          "Traffic Engineer — Feasibility study and detailed design for capacity improvement of the Namungoona–Nansana–Wakiso–Kakiri Road, 30 km (Ministry of Works and Transport), 2026–present",
+          "Transport/Infrastructure Engineer — Integrated climate-resilient detailed plan for the Royal Mile – Lubiri Cultural and Heritage Centre (KCCA), 2026–present",
+          "Transport/Highway Engineer — Integrated expressway manual and major facility management system for expressways in Uganda (KOICA/UNRA, with Korea Expressway Corporation), 2023–2026",
+          "Traffic Engineer/Technical Lead — Traffic surveys for the design and build of the Iganga–Bulopa–Kamuli Road (DAR Consultants), 2025",
+          "Assistant Project Manager — Design review and construction supervision of urban roads in Hoima, Fort Portal and Kasese, USMID-AF Cluster 7 (Ministry of Lands, Housing and Urban Development), 2021–2023",
+          "Transport Economist — Guidelines and criteria for defining, aligning and mapping national shared infrastructure corridors (Ministry of Lands, Housing and Urban Development), 2022",
+          "Assistant Project Manager, Traffic Engineer and Assistant Traffic Modeler — Expressway Development Master Plan for Uganda (Korea Expressway Corporation), 2019–2022",
+          "Deputy Team Leader — Nationwide traffic surveys for the Expressway Development Master Plan (UNRA), 2019–2020",
+          "Transport Engineer — Ferry landing sites for the Buyende–Kaberamaido–Kagwara ferry on Lake Kyoga (DYNACO/UNRA), 2019–2020",
+          "Traffic Engineer/Road Safety Engineer — Uganda's first Non-Motorized Transport Manual (Ministry of Works and Transport), 2019–2020",
+          "Traffic Engineer — Traffic impact assessment and junction redesign for the Bolloré Logistics access road, 2019",
+          "Civil Engineer — Construction drawings and supervision for insulated factory partitions, NB Panel, Japan, 2018–2019",
+          "Civil Engineer — JICA Uganda: Northern Uganda hospitals' OPD construction and Lake Kyoga Basin rural water supply projects, 2017–2018",
+          "Civil Engineer — Base transceiver station construction in Uganda, Rwanda and Ghana (I-Engineering Uganda), 2012–2014",
+          "Civil Engineer — 702 km MTN optic fiber cable installation (Huawei Engineering Uganda), 2011–2012",
+          "Engineering Intern — Upgrading of the Kikuubo and Kinawataka gravel roads (KCCA), 2009"
+        ]
+      }
     ]
   }
 ]
