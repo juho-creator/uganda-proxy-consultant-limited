@@ -150,7 +150,7 @@ function parseExperience(raw: string): TeamExperience[] {
     const position = cleanString(entry.position);
     const organization = cleanString(entry.organization);
     if (!position && !organization) return [];
-    const optional = (["project", "client", "country", "reference", "description"] as const).reduce<Partial<TeamExperience>>(
+    const optional = (["summary", "project", "client", "country", "reference", "description"] as const).reduce<Partial<TeamExperience>>(
       (fields, key) => {
         const value = cleanString(entry[key]);
         return value ? { ...fields, [key]: value } : fields;

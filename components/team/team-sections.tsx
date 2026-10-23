@@ -118,44 +118,6 @@ export function ListBody({ list }: { list: TeamList }) {
   );
 }
 
-function ExperienceDetails({ entry }: { entry: TeamExperience }) {
-  // Organization, client and country are already shown on the entry itself.
-  if (!entry.reference && !entry.description && entry.activities.length === 0) return null;
-
-  return (
-    <details className="group mt-4 border-t border-ink-100 pt-3">
-      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-semibold text-clay-600 hover:text-clay-700 [&::-webkit-details-marker]:hidden">
-        <span className="group-open:hidden">
-          {entry.activities.length > 0 ? `View scope and ${entry.activities.length} key activities` : "View details"}
-        </span>
-        <span className="hidden group-open:inline">Hide details</span>
-        <span aria-hidden="true" className="transition-transform group-open:rotate-180">
-          &#9662;
-        </span>
-      </summary>
-      <div className="mt-3 space-y-4">
-        {entry.description && <p className="text-sm leading-relaxed text-ink-700">{entry.description}</p>}
-        {entry.activities.length > 0 && (
-          <ul className="space-y-1.5">
-            {entry.activities.map((activity) => (
-              <li key={activity} className="flex gap-2.5 text-sm leading-relaxed text-ink-700">
-                <span className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
-                {activity}
-              </li>
-            ))}
-          </ul>
-        )}
-        {entry.reference && (
-          <p className="text-sm text-ink-600">
-            <span className="font-semibold text-ink-500">Reference: </span>
-            <Linkify text={entry.reference} />
-          </p>
-        )}
-      </div>
-    </details>
-  );
-}
-
 const YEAR_RE = /\b(?:19|20)\d{2}\b/g;
 
 /** The year a position started, e.g. "August 2026 – present" → "2026". */
@@ -167,57 +129,90 @@ export function isCurrent(entry: TeamExperience) {
   return /present|to-?date/i.test(entry.period);
 }
 
-/** "17 positions · 2009 – present" style overview line for the top of the timeline. */
-export function experienceOverview(entries: TeamExperience[]) {
-  const years = entries.flatMap((entry) => entry.period.match(YEAR_RE) ?? []).map(Number);
-  const span = years.length
-    ? `${Math.min(...years)} – ${entries.some(isCurrent) ? "present" : Math.max(...years)}`
-    : null;
-  const organizations = new Set(entries.map((entry) => entry.organization).filter(Boolean)).size;
-  return [
-    `${entries.length} ${entries.length === 1 ? "position" : "positions"}`,
-    organizations > 1 ? `${organizations} organizations` : null,
-    span,
-  ]
-    .filter(Boolean)
-    .join(" · ");
-}
+const cardLabelClass = "text-[0.7rem] font-semibold uppercase tracking-widest text-ink-400";
 
+/**
+ * One position, laid out as: timeline (dates, country, current badge) → role → one-sentence
+ * summary → companies → key activities. The full project title, description and reference sit
+ * behind a small "Project details" toggle at the bottom.
+ */
 export function ExperienceCard({ entry }: { entry: TeamExperience }) {
-  const tags = [
-    entry.organization && { label: entry.organization, strong: true },
-    entry.client && { label: `Client: ${entry.client}` },
-    entry.country && { label: entry.country },
-  ].filter((tag): tag is { label: string; strong?: boolean } => Boolean(tag));
+  // Positions without a written summary fall back to their project title.
+  const summary = entry.summary ?? entry.project;
+  const hasProjectDetails = Boolean((entry.summary && entry.project) || entry.description || entry.reference);
 
   return (
-    <article className="border border-ink-100 bg-white p-5 transition-shadow hover:shadow-md hover:shadow-ink-950/5 sm:p-6">
-      <div className="flex flex-wrap items-center gap-2">
-        <p className="text-xs font-semibold uppercase tracking-widest text-ink-500">{entry.period}</p>
+    <article className="flex h-full flex-col border border-ink-100 bg-white p-5 transition-shadow hover:shadow-md hover:shadow-ink-950/5 sm:p-6">
+      {/* Timeline */}
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <p className="text-xs font-semibold uppercase tracking-widest text-clay-600">{entry.period}</p>
+        {entry.country && <p className="text-xs text-ink-400">· {entry.country}</p>}
         {isCurrent(entry) && (
           <span className="rounded-sm bg-clay-50 px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-wider text-clay-700">
             Current
           </span>
         )}
       </div>
+
+      {/* Role */}
       <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-ink-950">{entry.position}</h3>
-      {entry.project && <p className="mt-1.5 text-sm leading-relaxed text-ink-700">{entry.project}</p>}
-      {tags.length > 0 && (
-        <ul className="mt-3 flex flex-wrap gap-1.5">
-          {tags.map((tag) => (
-            <li
-              key={tag.label}
-              className={clsx(
-                "rounded-sm px-2 py-1 text-xs",
-                tag.strong ? "bg-ink-950 font-semibold text-white" : "bg-ink-50 font-medium text-ink-600"
-              )}
-            >
-              {tag.label}
-            </li>
-          ))}
-        </ul>
+
+      {/* One-sentence summary */}
+      {summary && <p className="mt-2 text-sm leading-relaxed text-ink-700">{summary}</p>}
+
+      {/* Companies */}
+      {(entry.organization || entry.client) && (
+        <dl className="mt-4 space-y-1.5 border-t border-ink-100 pt-4 text-sm">
+          {entry.organization && (
+            <div>
+              <dt className="sr-only">Company</dt>
+              <dd className="font-semibold text-ink-950">{entry.organization}</dd>
+            </div>
+          )}
+          {entry.client && (
+            <div className="flex gap-1.5">
+              <dt className="text-ink-400">Client:</dt>
+              <dd className="text-ink-700">{entry.client}</dd>
+            </div>
+          )}
+        </dl>
       )}
-      <ExperienceDetails entry={entry} />
+
+      {/* Key activities and roles */}
+      {entry.activities.length > 0 && (
+        <div className="mt-4 border-t border-ink-100 pt-4">
+          <p className={cardLabelClass}>Key activities</p>
+          <ul className="mt-2.5 space-y-2">
+            {entry.activities.map((activity) => (
+              <li key={activity} className="flex gap-2.5 text-sm leading-relaxed text-ink-700">
+                <span className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
+                {activity}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {hasProjectDetails && (
+        <details className="group mt-auto pt-4">
+          <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-xs font-semibold text-ink-500 hover:text-clay-600 [&::-webkit-details-marker]:hidden">
+            Project details
+            <span aria-hidden="true" className="transition-transform group-open:rotate-180">
+              &#9662;
+            </span>
+          </summary>
+          <div className="mt-3 space-y-2.5 text-sm leading-relaxed text-ink-600">
+            {entry.summary && entry.project && <p className="font-medium text-ink-800">{entry.project}</p>}
+            {entry.description && <p>{entry.description}</p>}
+            {entry.reference && (
+              <p>
+                <span className="font-semibold text-ink-500">Reference: </span>
+                <Linkify text={entry.reference} />
+              </p>
+            )}
+          </div>
+        </details>
+      )}
     </article>
   );
 }

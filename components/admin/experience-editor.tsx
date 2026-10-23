@@ -12,6 +12,7 @@ type TextField = Exclude<keyof EditableExperience, "key" | "activities" | "descr
 const FIELDS: { name: TextField; label: string; wide?: boolean }[] = [
   { name: "period", label: "Period" },
   { name: "position", label: "Position" },
+  { name: "summary", label: "One-sentence summary", wide: true },
   { name: "organization", label: "Organization" },
   { name: "country", label: "Country" },
   { name: "project", label: "Project", wide: true },
@@ -31,6 +32,7 @@ export function emptyExperience(): EditableExperience {
     client: "",
     country: "",
     reference: "",
+    summary: "",
     description: "",
     activities: "",
   };
@@ -113,7 +115,7 @@ export function ExperienceEditor({
             ))}
             <div className="sm:col-span-2">
               <label htmlFor={`exp-description-${entry.key}`} className={fieldLabelClass}>
-                Description
+                Project description
               </label>
               <textarea
                 id={`exp-description-${entry.key}`}

@@ -21,7 +21,6 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
   const programmaticUntil = useRef(0);
 
   const [visibleIndex, setVisibleIndex] = useState(0);
-  const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(entries.length <= 1);
   /** A year chosen with the slider, kept until the user scrolls the cards themselves. */
   const [pinnedYear, setPinnedYear] = useState<number | null>(null);
@@ -36,7 +35,6 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
   const visibleYear = yearStops.findIndex((stop) => stop.year === years[visibleIndex]);
   const activeYear = pinnedYear ?? Math.max(visibleYear, 0);
   const handlePosition = dragPosition ?? (yearStops.length > 1 ? activeYear / lastStop : 0);
-  const counterIndex = pinnedYear !== null ? yearStops[pinnedYear].index : visibleIndex;
 
   const update = useCallback(() => {
     const scroller = scrollerRef.current;
@@ -46,7 +44,6 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
     // The first card whose left edge is still in view; at the far end, the last card.
     const first = cardRefs.current.findIndex((card) => card && card.offsetLeft - scroller.offsetLeft >= left - 8);
     setVisibleIndex(end || first === -1 ? entries.length - 1 : first);
-    setAtStart(left <= 4);
     setAtEnd(end);
     // A scroll the user made themselves releases the year picked on the slider.
     if (Date.now() > programmaticUntil.current) setPinnedYear(null);
@@ -77,13 +74,6 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
       setPinnedYear(clamped);
       scrollToCard(yearStops[clamped].index);
     }
-  }
-
-  function step(direction: -1 | 1) {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    setPinnedYear(null);
-    scroller.scrollBy({ left: direction * scroller.clientWidth * 0.85, behavior: "smooth" });
   }
 
   function positionFromPointer(clientX: number) {
@@ -126,33 +116,13 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
     selectYear(keys[event.key]);
   }
 
-  const arrowClass =
-    "flex h-9 w-9 items-center justify-center rounded-sm border border-ink-200 bg-white text-ink-950 transition-colors hover:border-ink-400 disabled:cursor-not-allowed disabled:opacity-30";
   const dragging = dragPosition !== null;
 
   return (
     <div>
-      {/* Controls */}
-      <div className="flex items-center justify-between gap-4">
-        <p className="font-display text-sm text-ink-500">
-          Showing <span className="font-semibold text-ink-950">{yearStops[activeYear]?.year}</span>
-        </p>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold tabular-nums text-ink-500">
-            {counterIndex + 1} / {entries.length}
-          </span>
-          <button type="button" aria-label="Previous positions" disabled={atStart} onClick={() => step(-1)} className={arrowClass}>
-            <span aria-hidden="true">&larr;</span>
-          </button>
-          <button type="button" aria-label="Next positions" disabled={atEnd} onClick={() => step(1)} className={arrowClass}>
-            <span aria-hidden="true">&rarr;</span>
-          </button>
-        </div>
-      </div>
-
       {/* Year slider: dots for every year, most recent on the left, with a draggable handle */}
       {yearStops.length > 1 && (
-        <div className="mt-6 px-3">
+        <div className="px-3">
           <div
             ref={trackRef}
             className="relative h-14 cursor-pointer touch-none select-none"
@@ -218,12 +188,11 @@ export function WorkTimeline({ entries }: { entries: TeamExperience[] }) {
               <span className="h-2 w-2 rounded-full bg-clay-500" />
             </div>
           </div>
-          <p className="mt-1 text-xs text-ink-400">Drag the dot or select a year.</p>
         </div>
       )}
 
       {/* Position cards */}
-      <div className="relative mt-6">
+      <div className="relative mt-4">
         <ol
           ref={scrollerRef}
           tabIndex={0}

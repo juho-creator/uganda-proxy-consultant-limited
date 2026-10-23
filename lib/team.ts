@@ -15,6 +15,8 @@ export type TeamExperience = {
   client?: string;
   country?: string;
   reference?: string;
+  /** One plain-language sentence describing the position, shown under the role. */
+  summary?: string;
   description?: string;
   activities: string[];
 };

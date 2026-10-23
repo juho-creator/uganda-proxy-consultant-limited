@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { SectionNav } from "@/components/team/section-nav";
-import { FactGrid, ListBody, MemberPhoto, experienceOverview, sectionId } from "@/components/team/team-sections";
+import { FactGrid, ListBody, MemberPhoto, sectionId } from "@/components/team/team-sections";
 import { WorkTimeline } from "@/components/team/work-timeline";
 import { getTeamMember } from "@/lib/team";
 
@@ -93,10 +93,6 @@ export default async function TeamMemberPage({ params }: Props) {
             {member.experience.length > 0 && (
               <section id="work-experience" className="scroll-mt-28">
                 <SectionTitle>Work experience</SectionTitle>
-                <p className="mt-2 text-sm text-ink-500">
-                  {experienceOverview(member.experience)}. Most recent first — drag along the years or scroll sideways, and open a position
-                  to see its scope and key activities.
-                </p>
                 <div className="mt-6">
                   <WorkTimeline entries={member.experience} />
                 </div>
