@@ -89,6 +89,7 @@
       {
         "period": "August 2026 – present",
         "position": "Traffic Engineer",
+        "summary": "Leads the traffic surveys and traffic engineering for the feasibility study and detailed design to increase the capacity of the 30 km Namungoona – Nansana – Wakiso – Kakiri Road.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Consultancy Services for Feasibility Study and Detailed Engineering Design for Capacity Improvement of Namungoona – Nansana – Wakiso – Kakiri Road (30 km)",
         "client": "Ministry of Works and Transport",
@@ -106,6 +107,7 @@
       {
         "period": "April 2026 – present",
         "position": "Transport/Infrastructure Engineer",
+        "summary": "Plans inclusive, climate-resilient transport and infrastructure for KCCA's detailed plan of the Royal Mile – Lubiri Cultural and Heritage Centre precinct.",
         "organization": "Eco-Shelter Environmental Consultants",
         "project": "Consultancy Services for Preparation of an Integrated Climate-Resilient Detailed Plan for the Royal Mile – Lubiri Cultural and Heritage Centre",
         "client": "KCCA",
@@ -123,6 +125,7 @@
       {
         "period": "July – August 2025",
         "position": "Traffic Engineer/Technical Lead",
+        "summary": "Led OD, axle load and classified count surveys with a team of over 25 enumerators for the design and build of the Iganga – Bulopa – Kamuli Road.",
         "organization": "BIRT Transportation and Environment",
         "project": "Traffic Surveys for the Design and Build of Iganga – Bulopa – Kamuli Road",
         "client": "DAR Consultants Ltd",
@@ -140,6 +143,7 @@
       {
         "period": "January 2023 – October 2026",
         "position": "Transport/Highway Engineer",
+        "summary": "Develops Uganda's integrated expressway manuals covering planning, design, construction, operation and maintenance.",
         "organization": "Korea Expressway Corporation (KEC)",
         "project": "Development of an Integrated Expressway Manual and Major Facility Management System for Expressways in Uganda",
         "client": "KOICA/UNRA",
@@ -157,6 +161,7 @@
       {
         "period": "February 2022 – August 2022",
         "position": "Transport Economist",
+        "summary": "Developed guidelines for defining shared infrastructure corridors and helped align and map the Kampala – Malaba arm of the National Infrastructure Corridor.",
         "organization": "SIRAJ Nigeria Limited",
         "project": "Consultancy Services for Developing Guidelines and Criteria for Defining, Aligning and Mapping National Shared Infrastructure Corridors",
         "client": "Ministry of Lands, Housing and Urban Development",
@@ -172,6 +177,7 @@
       {
         "period": "August 2021 – December 2023",
         "position": "Assistant Project Manager",
+        "summary": "Managed the design review and construction supervision of upgraded urban roads in Hoima, Fort Portal and Kasese, with a focus on traffic safety.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Uganda Support to Municipal Infrastructure Development (USMID-AF) Cluster 7 (Hoima, Fort Portal and Kasese)",
         "client": "Ministry of Lands, Housing and Urban Development",
@@ -191,6 +197,7 @@
       {
         "period": "September 2019 – February 2020",
         "position": "Deputy Team Leader – Nationwide Traffic Surveys",
+        "summary": "Co-led nationwide traffic surveys with over 100 enumerators, including OD surveys at 172 locations and counts at 146 stations, for Uganda's Expressway Development Master Plan.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Consultancy Services for Preparation of Expressway Development Master Plan (EDMP) for Uganda",
         "client": "UNRA",
@@ -207,6 +214,7 @@
       {
         "period": "September 2019 – November 2019",
         "position": "Traffic Engineer",
+        "summary": "Carried out the traffic impact assessment and junction capacity analysis for the redesigned Bolloré Logistics access road.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Design and Modification of Bolloré Logistics Access Road",
         "client": "Bolloré Logistics",
@@ -224,6 +232,7 @@
       {
         "period": "August 2019 – July 2020",
         "position": "Traffic Engineer/Road Safety Engineer",
+        "summary": "Helped develop and produce Uganda's first Non-Motorized Transport Manual with South African consultancy Aurecon EMEI.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Development and Production of Uganda's Non-Motorized Transport Manual",
         "client": "Ministry of Works and Transport – Uganda",
@@ -239,6 +248,7 @@
       {
         "period": "June 2019 – August 2020",
         "position": "Transport Engineer",
+        "summary": "Forecast traffic demand and prepared the economic analysis for new ferry landing sites on Lake Kyoga connecting Buyende, Kaberamaido and Serere.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Design and Build Project to Develop Ferry Landing Sites for Buyende, Kaberamaido and Kagwara (BKK) Ferry on Lake Kyoga",
         "client": "DYNACO Limited/UNRA",
@@ -255,6 +265,7 @@
       {
         "period": "April 2019 – March 2022",
         "position": "Traffic Engineer/Assistant Modeler (back-stopper for the Traffic Modeler and Transport Economist)",
+        "summary": "Built the base traffic model and forecast future demand in EMME for Uganda's Expressway Development Master Plan, which looks ahead to 2070.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Consultancy Services for Preparation of Expressway Development Master Plan (EDMP) for Uganda",
         "client": "Korea Expressway Corporation (KEC)",
@@ -271,6 +282,7 @@
       {
         "period": "April 2019 – March 2022",
         "position": "Assistant Project Manager, National Consultant",
+        "summary": "Represented the local consultant on the project management team of Uganda's Expressway Development Master Plan.",
         "organization": "Centre for Infrastructure Consulting Ltd (CIC)",
         "project": "Consultancy Services for Preparation of Expressway Development Master Plan (EDMP) for Uganda",
         "client": "Korea Expressway Corporation (KEC)",
@@ -290,6 +302,7 @@
       {
         "period": "July 2018 – May 2019",
         "position": "Civil Engineer",
+        "summary": "Produced construction drawings and supervised the installation of heat and sound insulation partitions for food and pharmaceutical factories in Japan.",
         "organization": "NB Panel, Japan",
         "country": "Japan",
         "description": "NB Panel specializes in the creation and installation of both heat and sound insulation partitions for large chilled food and pharmaceutical factories. The general scope of work included feasibility studies, creation of construction drawings and partition installations. He was mainly in charge of creating construction drawings using AutoCAD and construction supervision during implementation.",
@@ -298,6 +311,7 @@
       {
         "period": "August 2017 – June 2018 (12 months)",
         "position": "Civil Engineer",
+        "summary": "Oversaw the start of two JICA-funded projects in Uganda: hospital outpatient buildings in Lira, Gulu and Arua, and rural water supply in the Lake Kyoga Basin.",
         "organization": "JICA Uganda",
         "client": "Government of Japan",
         "country": "Japan and Uganda",
@@ -307,6 +321,7 @@
       {
         "period": "March 2012 – March 2014",
         "position": "Civil Engineer",
+        "summary": "Supervised the construction of base transceiver stations for telecom operators across Uganda, Rwanda and Ghana.",
         "organization": "I-Engineering Uganda",
         "project": "Development and Construction of Base Transceiver Stations around the Country",
         "client": "Several, e.g. ATC, Eaton Towers, MTN, Airtel, Orange, Smile",
@@ -322,6 +337,7 @@
       {
         "period": "January 2011 – January 2012",
         "position": "Civil Engineer",
+        "summary": "Designed and supervised the installation of 702 km of optic fiber cable for MTN.",
         "organization": "Huawei Engineering Uganda",
         "project": "Development and Installation of MTN Optic Fiber Cable, 702 km",
         "client": "MTN",
@@ -337,6 +353,7 @@
       {
         "period": "June 2009 – July 2009",
         "position": "Intern – Civil Engineer",
+        "summary": "Gained hands-on road construction experience on the upgrading of the Kikuubo and Kinawataka gravel roads.",
         "organization": "Dott Services Limited",
         "project": "Upgrading of Kikuubo and Kinawataka Gravel Roads",
         "client": "KCCA",
