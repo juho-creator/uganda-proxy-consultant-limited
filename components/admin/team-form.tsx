@@ -1,19 +1,46 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { DeleteButton, ErrorMessage, Field, FormActions, inputClass, useAdminRequest } from "./form-ui";
+import { useState } from "react";
+import { clsx } from "clsx";
+import { DeleteButton, ErrorMessage, Field, FormActions, inputClass, smallButtonClass, useAdminRequest } from "./form-ui";
 import { ImagePicker } from "./image-picker";
 import type { TeamMember } from "@/lib/team";
+
+/** A list being edited: items are kept as one-per-line text until the form is submitted. */
+type EditableList = { key: number; label: string; items: string };
+
+let nextListKey = 0;
+
+function toEditableLists(member?: TeamMember): EditableList[] {
+  if (!member) return [{ key: nextListKey++, label: "Key credentials", items: "" }];
+  return member.lists.map((list) => ({ key: nextListKey++, label: list.label, items: list.items.join("\n") }));
+}
 
 /** Add (no `member`) or edit a team member shown on the Our Team page. */
 export function TeamForm({ member }: { member?: TeamMember }) {
   const router = useRouter();
   const { send, pending, error } = useAdminRequest();
+  const [lists, setLists] = useState<EditableList[]>(() => toEditableLists(member));
   const endpoint = member ? `/api/admin/team/${encodeURIComponent(member.id)}` : "/api/admin/team";
+
+  function updateList(key: number, changes: Partial<EditableList>) {
+    setLists((current) => current.map((list) => (list.key === key ? { ...list, ...changes } : list)));
+  }
+
+  function moveList(index: number, offset: -1 | 1) {
+    setLists((current) => {
+      const next = [...current];
+      [next[index], next[index + offset]] = [next[index + offset], next[index]];
+      return next;
+    });
+  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    send(endpoint, { method: member ? "PUT" : "POST", body: new FormData(event.currentTarget) }, () => {
+    const data = new FormData(event.currentTarget);
+    data.set("lists", JSON.stringify(lists.map((list) => ({ label: list.label, items: list.items.split("\n") }))));
+    send(endpoint, { method: member ? "PUT" : "POST", body: data }, () => {
       router.push("/admin");
       router.refresh();
     });
@@ -43,20 +70,66 @@ export function TeamForm({ member }: { member?: TeamMember }) {
           <textarea id="bio" name="bio" rows={8} defaultValue={member?.bio.join("\n\n")} className={inputClass} />
         </Field>
 
-        <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_1fr]">
-          <Field id="highlightsLabel" label="List heading" hint="For example “Key credentials”.">
-            <input
-              id="highlightsLabel"
-              name="highlightsLabel"
-              type="text"
-              defaultValue={member?.highlightsLabel ?? "Key credentials"}
-              className={inputClass}
-            />
-          </Field>
-          <Field id="highlights" label="List items" hint="One item per line. Leave empty to hide the list.">
-            <textarea id="highlights" name="highlights" rows={5} defaultValue={member?.highlights.join("\n")} className={inputClass} />
-          </Field>
-        </div>
+        <Field label="Lists" hint="Shown as panels under the background, e.g. Education or Professional memberships. Empty lists are hidden.">
+          <div className="mt-1.5 space-y-3">
+            {lists.map((list, index) => (
+              <div key={list.key} className="border border-ink-100 bg-ink-50/60 p-4">
+                <div className="flex flex-wrap items-end gap-3">
+                  <div className="min-w-0 flex-1">
+                    <label htmlFor={`list-label-${list.key}`} className="text-xs font-semibold uppercase tracking-widest text-ink-500">
+                      Heading
+                    </label>
+                    <input
+                      id={`list-label-${list.key}`}
+                      type="text"
+                      value={list.label}
+                      onChange={(event) => updateList(list.key, { label: event.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex gap-1.5">
+                    <button type="button" aria-label="Move list up" disabled={index === 0} onClick={() => moveList(index, -1)} className={smallButtonClass}>
+                      ↑
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Move list down"
+                      disabled={index === lists.length - 1}
+                      onClick={() => moveList(index, 1)}
+                      className={smallButtonClass}
+                    >
+                      ↓
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setLists((current) => current.filter((item) => item.key !== list.key))}
+                      className={clsx(smallButtonClass, "text-clay-600")}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+                <label htmlFor={`list-items-${list.key}`} className="mt-3 block text-xs font-semibold uppercase tracking-widest text-ink-500">
+                  Items <span className="font-normal normal-case tracking-normal">(one per line)</span>
+                </label>
+                <textarea
+                  id={`list-items-${list.key}`}
+                  rows={Math.min(Math.max(list.items.split("\n").length + 1, 3), 12)}
+                  value={list.items}
+                  onChange={(event) => updateList(list.key, { items: event.target.value })}
+                  className={inputClass}
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => setLists((current) => [...current, { key: nextListKey++, label: "", items: "" }])}
+              className={smallButtonClass}
+            >
+              + Add list
+            </button>
+          </div>
+        </Field>
       </fieldset>
 
       {error && <ErrorMessage>{error}</ErrorMessage>}

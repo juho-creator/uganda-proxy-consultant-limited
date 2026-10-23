@@ -1,6 +1,8 @@
 import path from "path";
 import { deleteImages, deleteUnusedImages, readJson, writeJson } from "./uploads";
 
+export type TeamList = { label: string; items: string[] };
+
 export type TeamMember = {
   id: string;
   name: string;
@@ -9,8 +11,8 @@ export type TeamMember = {
   summary: string;
   /** Career background, one short paragraph per entry. */
   bio: string[];
-  highlightsLabel: string;
-  highlights: string[];
+  /** Headed lists shown under the bio, e.g. "Education" or "Professional memberships". */
+  lists: TeamList[];
   /** Portrait served from /api/images. */
   photo?: string;
 };

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { isIsoDate } from "./article-date";
 import { isAdminSession } from "./admin-auth";
 import type { Article, ArticleBlock } from "./news";
-import type { TeamMember } from "./team";
+import type { TeamList, TeamMember } from "./team";
 import { ImageUploadError, deleteImages, isStoredImageSrc, saveImage } from "./uploads";
 
 // Shared parsing for the admin create/edit endpoints. Forms arrive as multipart data so images can
@@ -106,11 +106,29 @@ export async function parseTeamForm(form: FormData, id: string, existing: TeamMe
   const name = requireText(form, "name", "Name");
   const title = requireText(form, "title", "Job title");
   const summary = requireText(form, "summary", "Summary");
-  // Paragraphs are separated by a blank line; highlights are one per line.
+  // Paragraphs are separated by a blank line.
   const bio = splitEntries(text(form, "bio"), /\n\s*\n/);
-  const highlights = splitEntries(text(form, "highlights"), /\n/);
-  const highlightsLabel = text(form, "highlightsLabel") || "Key credentials";
+  const lists = parseLists(String(form.get("lists") ?? "[]"));
 
   const photo = await resolveImage(form, "photo", existing?.photo, uploaded);
-  return { id, name, title, summary, bio, highlightsLabel, highlights, ...(photo ? { photo } : {}) };
+  return { id, name, title, summary, bio, lists, ...(photo ? { photo } : {}) };
+}
+
+/** Lists arrive as JSON `[{ label, items }]`; lists without a heading or any items are dropped. */
+function parseLists(raw: string): TeamList[] {
+  let incoming: unknown;
+  try {
+    incoming = JSON.parse(raw);
+  } catch {
+    throw new FormError("Lists are malformed.");
+  }
+  if (!Array.isArray(incoming)) throw new FormError("Lists are malformed.");
+
+  return incoming.flatMap((list: { label?: unknown; items?: unknown }) => {
+    const label = typeof list?.label === "string" ? list.label.trim() : "";
+    const items = Array.isArray(list?.items)
+      ? list.items.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean)
+      : [];
+    return label && items.length ? [{ label, items }] : [];
+  });
 }
