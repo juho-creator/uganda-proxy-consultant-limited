@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
+import { FooterVisibility } from "@/components/footer-visibility";
 import { SiteFooter } from "@/components/site-footer";
 import { COMPANY } from "@/lib/content";
 import "./globals.css";
@@ -46,7 +47,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content" className="flex-1">
           {children}
         </main>
-        <SiteFooter />
+        <FooterVisibility>
+          <SiteFooter />
+        </FooterVisibility>
       </body>
     </html>
   );
