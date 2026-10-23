@@ -71,7 +71,7 @@
     "id": "christopher-job-mukuye",
     "name": "Christopher Job Mukuye",
     "title": "Transportation Engineer",
-    "summary": "Professional transportation and civil engineer specializing in the planning and modeling of sustainable transportation systems and the design and construction supervision of highways and railway lines.",
+    "summary": "",
     "highlight": "Multilingual transportation engineer with over 15 years of experience in traffic modeling, surveys and road design.",
     "facts": [
       {
@@ -80,21 +80,21 @@
       },
       {
         "label": "Citizenship",
-        "value": "Ugandan"
+        "value": "Uganda"
       }
     ],
     "bio": [
-      "His career spans transport systems research, traffic engineering and the management of complex, multidisciplinary transportation studies and highway supervision projects, mostly in Uganda, with earlier work in Japan, Rwanda and Ghana.",
-      "On the Expressway Development Master Plan for Uganda, he served as Assistant Project Manager for the national consultant, as Deputy Team Leader of the nationwide traffic surveys (OD surveys at 172 locations and counts at 146 stations, with more than 100 enumerators) and as Assistant Traffic Modeler, building the base traffic model in EMME. He went on to help develop Uganda's integrated expressway manuals with Korea Expressway Corporation, preparing the traffic, road safety and expressway planning guidelines.",
-      "He co-authored Volume VII (Non-Motorized Transport) of the Uganda Road Design Manual and helped produce Uganda's first Non-Motorized Transport Manual for the Ministry of Works and Transport. He currently serves as Traffic Engineer on the feasibility study and detailed design for the capacity improvement of the 30 km Namungoona–Nansana–Wakiso–Kakiri Road, and as Transport/Infrastructure Engineer on the integrated climate-resilient plan for the Royal Mile – Lubiri Cultural and Heritage Centre.",
-      "He is fluent in English and Luganda and has a working knowledge of Japanese."
+      "Christopher Job Mukuye is a Professional Transportation Engineer with a special passion and interest in the planning and modeling of sustainable transportation systems, as well as the design and construction supervision of highways and railway lines.",
+      "He has served in various transportation roles, ranging from transport systems research to the management of multidisciplinary, complex transportation studies and highway supervision projects, through which he has gathered considerable years of professional experience.",
+      "He is well versed in various software packages, including SIDRA, Vissim, MATLAB, JICA STRADA and most Microsoft Office packages.",
+      "With professional experience not only in transportation projects but also in academic research and general project management, he is confident that he can deliver any project or assignment efficiently."
     ],
     "lists": [
       {
         "label": "Education",
         "items": [
-          "Master of Engineering (MEng), Transport Planning and Engineering — Kyoto University, Japan, 2017 (Distinction). [Thesis summary (PDF)](http://trans.kuciv.kyoto-u.ac.jp/its/english/pdf/2016_M2_2pages/Chris.pdf)",
-          "Bachelor of Science (BSc) in Civil Engineering — Makerere University, 2011 (Second Class Upper)"
+          "Master of Engineering, Transport Planning and Engineering — Kyoto University, Japan, 2017 (Distinction). [Thesis summary (PDF)](http://trans.kuciv.kyoto-u.ac.jp/its/english/pdf/2016_M2_2pages/Chris.pdf)",
+          "Bachelor of Science in Civil Engineering — Makerere University, 2011 (Second Class Upper)"
         ]
       },
       {
@@ -111,14 +111,6 @@
           "“Covid-19 and the Transportation Fundamentals” — FIDIC Future Leaders Booklet 2020: Infrastructure Development and Consulting Engineering in the New Normal. [View the booklet](https://fidic.org/FLC)",
           "“Improving Origin-Destination Matrix Estimation through Qualitative Data” — 6th International Symposium on Transportation Reliability, Sydney, 2018",
           "“Demonstration of Potential Applicability of Qualitative Data in Origin-Destination Matrix Estimation” — 54th JSCE Infrastructure Planning Conference, Nagasaki, 2016"
-        ]
-      },
-      {
-        "label": "Software",
-        "items": [
-          "SIDRA and Vissim (junction and traffic simulation)",
-          "EMME and JICA STRADA (transport demand modeling)",
-          "MATLAB, AutoCAD and Microsoft Office"
         ]
       }
     ],
