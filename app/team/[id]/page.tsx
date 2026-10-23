@@ -94,7 +94,7 @@ export default async function TeamMemberPage({ params }: Props) {
               <section id="work-experience" className="scroll-mt-28">
                 <SectionTitle>Work experience</SectionTitle>
                 <p className="mt-2 text-sm text-ink-500">
-                  {experienceOverview(member.experience)}. Most recent first — scroll sideways or pick a year, and open a position
+                  {experienceOverview(member.experience)}. Most recent first — drag along the years or scroll sideways, and open a position
                   to see its scope and key activities.
                 </p>
                 <div className="mt-6">
