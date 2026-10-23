@@ -46,6 +46,16 @@
     "name": "Christopher Job Mukuye",
     "title": "Transportation Engineer",
     "summary": "Professional transportation and civil engineer specializing in the planning and modeling of sustainable transportation systems and the design and construction supervision of highways and railway lines.",
+    "facts": [
+      {
+        "label": "Date of birth",
+        "value": "December 18, 1987"
+      },
+      {
+        "label": "Citizenship",
+        "value": "Ugandan"
+      }
+    ],
     "bio": [
       "His career spans transport systems research, traffic engineering and the management of complex, multidisciplinary transportation studies and highway supervision projects, mostly in Uganda, with earlier work in Japan, Rwanda and Ghana.",
       "On the Expressway Development Master Plan for Uganda, he served as Assistant Project Manager for the national consultant, as Deputy Team Leader of the nationwide traffic surveys (OD surveys at 172 locations and counts at 146 stations, with more than 100 enumerators) and as Assistant Traffic Modeler, building the base traffic model in EMME. He went on to help develop Uganda's integrated expressway manuals with Korea Expressway Corporation, preparing the traffic, road safety and expressway planning guidelines.",
@@ -56,8 +66,8 @@
       {
         "label": "Education",
         "items": [
-          "MEng, Transport Planning and Engineering — Kyoto University, Japan, 2017 (Distinction)",
-          "BSc, Civil Engineering — Makerere University, 2011 (Second Class Upper)"
+          "Master of Engineering (MEng), Transport Planning and Engineering — Kyoto University, Japan, 2017 (Distinction). [Thesis summary (PDF)](http://trans.kuciv.kyoto-u.ac.jp/its/english/pdf/2016_M2_2pages/Chris.pdf)",
+          "Bachelor of Science (BSc) in Civil Engineering — Makerere University, 2011 (Second Class Upper)"
         ]
       },
       {
@@ -70,8 +80,8 @@
       {
         "label": "Publications",
         "items": [
-          "Uganda Road Design Manual, Vol. VII: Non-Motorized Transport — Ministry of Works and Transport, 2025 (co-author)",
-          "“Covid-19 and the Transportation Fundamentals” — FIDIC Future Leaders Booklet, 2020",
+          "Uganda Road Design Manual, Vol. VII: Non-Motorized Transport — Ministry of Works and Transport, 2025 (co-author). [View the manual](https://works.go.ug/road-design-manual-volume-vii-non-motorized-transport/)",
+          "“Covid-19 and the Transportation Fundamentals” — FIDIC Future Leaders Booklet 2020: Infrastructure Development and Consulting Engineering in the New Normal. [View the booklet](https://fidic.org/FLC)",
           "“Improving Origin-Destination Matrix Estimation through Qualitative Data” — 6th International Symposium on Transportation Reliability, Sydney, 2018",
           "“Demonstration of Potential Applicability of Qualitative Data in Origin-Destination Matrix Estimation” — 54th JSCE Infrastructure Planning Conference, Nagasaki, 2016"
         ]
